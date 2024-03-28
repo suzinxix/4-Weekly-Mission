@@ -1,14 +1,13 @@
 import { useState, MouseEvent } from "react";
 import Image from "next/image";
 import styles from "./card.module.css";
-import { formatDate, getTimeDifference } from "utils/helpers/dateUtils";
 import DeleteModal from "components/Modal/DeleteModal/DeleteModal";
 import FolderModal from "components/Modal/FolderModal/FolderModal";
-import meatballsIcon from "assets/images/ic_meatballs.svg";
-import noImage from "public/images/bg_noImage.png";
+import { formatDate, getTimeDifference } from "utils/helpers/dateUtils";
 import { DELETE_LINK, ADD_LINK } from "utils/constants/strings";
 import { GetLinkResponse } from "types/apis";
 import { UseModal, Modal, OpenModal, CloseModal } from "utils/hooks/useModal";
+import noImage from "public/images/bg_noImage.png";
 
 interface Props extends Partial<UseModal> {
   item: GetLinkResponse;
@@ -20,12 +19,14 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
     item;
   const date = createdAt || created_at;
   const imgUrl = imageSource || image_source;
+  
   const isFolderPage = modals && openModal && closeModal;
-  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setMenuOpen((prev) => !prev);
+    setIsMenuOpen((prev) => !prev);
   };
 
   return (
@@ -84,6 +85,7 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
               {isMenuOpen && (
                 <div className={styles.options}>
                   <button
+                    type="button"
                     className={styles.option}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -100,6 +102,7 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
                     />
                   )}
                   <button
+                    type="button"
                     className={styles.option}
                     onClick={(e) => {
                       e.stopPropagation();

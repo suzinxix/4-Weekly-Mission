@@ -1,10 +1,10 @@
 import BaseModeal from "../BaseModal/BaseModal";
 import styles from "./folder.module.css";
 import { ADD_LINK, ADD_FOLDER, EDIT } from "utils/constants/strings";
-import { ModalProps } from "../BaseModal/BaseModal";
+import { BaseModalProps } from "../BaseModal/BaseModal";
 import { GetFolderResponse } from "types/apis";
 
-interface Props extends ModalProps {
+interface Props extends BaseModalProps {
   link?: string;
   deleted?: string;
   list?: GetFolderResponse[] | null;
@@ -42,7 +42,9 @@ function FolderModal({ variant, closeModal, link, list }: Props) {
         <input type="text" className={styles.input} placeholder="내용 입력" />
       )}
 
-      <button className={`${styles.btn}`}>{action}</button>
+      <button type="button" className={styles.btn}>
+        {action}
+      </button>
     </BaseModeal>
   );
 }

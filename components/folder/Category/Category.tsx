@@ -16,7 +16,7 @@ function Category({ buttonNames, selectedCategory, onClick }: Props) {
     <div className={styles.buttons}>
       <Link href="/folder">
         <FolderButton
-          ischecked={selectedCategory.name === ALL}
+          isChecked={selectedCategory.name === ALL}
           onClick={() => onClick(null, ALL)}
         >
           {ALL}
@@ -33,7 +33,7 @@ function Category({ buttonNames, selectedCategory, onClick }: Props) {
         // </Link>
         <FolderButton
           key={id}
-          ischecked={selectedCategory.name === name}
+          isChecked={selectedCategory.name === name}
           onClick={() => onClick(id, name)}
         >
           {name}

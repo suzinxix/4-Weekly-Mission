@@ -1,9 +1,8 @@
-import Image from 'next/image'
+import Image from "next/image";
 import styles from "./actionButton.module.css";
-import { OpenModal } from "utils/hooks/useModal";
 
 interface Props {
-  openModal: OpenModal;
+  openModal: (modalName: string) => void;
   variant: string;
 }
 
@@ -29,14 +28,18 @@ function ActionButton({ openModal, variant }: Props) {
   const { icon, name, imgUrl } = variantInfo[variant];
 
   return (
-    <button className={styles.barButton} onClick={() => openModal(variant)}>
+    <button
+      type="button"
+      className={styles.barButton}
+      onClick={() => openModal(variant)}
+    >
       <Image
-      src={imgUrl}
-      width={18}
-      height={18}
-      alt={`${icon} 아이콘`}
-      priority
-    />
+        src={imgUrl}
+        width={18}
+        height={18}
+        alt={`${icon} 아이콘`}
+        priority
+      />
       <span>{name}</span>
     </button>
   );

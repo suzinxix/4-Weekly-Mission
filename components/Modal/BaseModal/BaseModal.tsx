@@ -1,14 +1,13 @@
 import { useEffect, useRef, ReactNode } from "react";
 import Image from "next/image";
 import styles from "./base.module.css";
-import { CloseModal } from "../../../utils/hooks/useModal";
 
-export interface ModalProps {
+export interface BaseModalProps {
   variant: string;
-  closeModal: CloseModal;
+  closeModal: (modalName: string) => void;
 }
 
-interface Props extends ModalProps {
+interface Props extends BaseModalProps {
   title: string;
   children: ReactNode;
 }
@@ -16,16 +15,16 @@ interface Props extends ModalProps {
 function BaseModeal({ title, children, variant, closeModal }: Props) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleOutSideClick = (e: MouseEvent) => {
+  const handleOutsideClick = (e: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       closeModal(variant);
     }
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleOutSideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", handleOutSideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   });
 
@@ -37,6 +36,7 @@ function BaseModeal({ title, children, variant, closeModal }: Props) {
           <div className={styles.title}>{title}</div>
           {children}
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               closeModal(variant);

@@ -36,6 +36,7 @@ function Header({ list }: Props) {
           onChange={handleChange}
         />
         <button
+          type="button"
           className={style.button}
           onClick={(e) => {
             e.preventDefault();

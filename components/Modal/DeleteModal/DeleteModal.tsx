@@ -1,9 +1,9 @@
 import BaseModeal from "../BaseModal/BaseModal";
 import styles from "./delete.module.css";
 import { DELETE_LINK, DELETE_FOLDER } from "utils/constants/strings";
-import { ModalProps } from "../BaseModal/BaseModal";
+import { BaseModalProps } from "../BaseModal/BaseModal";
 
-interface Props extends ModalProps {
+interface Props extends BaseModalProps {
   deleted: string;
 }
 
@@ -22,7 +22,9 @@ function DeleteModal({ variant, deleted, closeModal }: Props) {
       closeModal={closeModal}
     >
       <p className={styles.deleted}>{deleted}</p>
-      <button className={styles.deletedBtn}>삭제하기</button>
+      <button type="button" className={styles.deletedBtn}>
+        삭제하기
+      </button>
     </BaseModeal>
   );
 }

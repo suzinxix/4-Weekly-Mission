@@ -3,9 +3,9 @@ import Image from "next/image";
 import styles from "./searchbar.module.css";
 
 interface Props {
-  value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 function SearchBar({ value, onChange, onClick }: Props) {

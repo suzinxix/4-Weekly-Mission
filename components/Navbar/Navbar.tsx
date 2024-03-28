@@ -28,7 +28,7 @@ function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.wrap}>
         <Link href="/">
-          <Image src="images/logo.svg" alt="로고" width="133" height="24"/>
+          <Image src="images/logo.svg" alt="로고" width="133" height="24" />
         </Link>
         {user ? (
           <Link href="/mypage">
@@ -36,7 +36,7 @@ function Navbar() {
           </Link>
         ) : (
           <Link href="/login">
-            <button>로그인</button>
+            <button type="button">로그인</button>
           </Link>
         )}
       </div>

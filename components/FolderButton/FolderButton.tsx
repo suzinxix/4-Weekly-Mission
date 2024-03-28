@@ -2,18 +2,19 @@ import { MouseEvent, ReactNode } from "react";
 import styles from "./folderButton.module.css";
 
 interface Props {
+  isChecked: boolean;
   children: ReactNode;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
-  ischecked: boolean;
 }
 
-function FolderButton({ children, onClick, ischecked }: Props) {
+function FolderButton({ children, onClick, isChecked }: Props) {
   return (
     <button
-      className={`${styles.btn} ${ischecked ? styles.checked : ""}`}
+      type="button"
+      className={`${styles.btn} ${isChecked ? styles.checked : ""}`}
       onClick={onClick}
     >
-      <p className={styles.text}>{children}</p>
+      {children}
     </button>
   );
 }

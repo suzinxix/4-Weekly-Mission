@@ -117,6 +117,7 @@ function FolderPage() {
                 />
 
                 <button
+                  type="button"
                   className={styles.addButton}
                   onClick={() => openModal(ADD_FOLDER)}
                 >

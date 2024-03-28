@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import Image from "next/image";
 import BaseModeal from "../BaseModal/BaseModal";
 import styles from "./shared.module.css";
-import { ModalProps } from "../BaseModal/BaseModal";
+import { BaseModalProps } from "../BaseModal/BaseModal";
 
-interface Props extends ModalProps {
+interface Props extends BaseModalProps {
   folder: string;
 }
 
@@ -56,7 +56,7 @@ function SharedModal({ folder, variant, closeModal }: Props) {
       <p className={styles.folder}>{folder}</p>
       <div className={styles.items}>
         <div className={styles.item}>
-          <button className={styles.icon} onClick={sharedKakao}>
+          <button type="button" className={styles.icon} onClick={sharedKakao}>
             <Image
               src="/images/ic_kakao.svg"
               width={18}
@@ -68,7 +68,11 @@ function SharedModal({ folder, variant, closeModal }: Props) {
         </div>
 
         <div className={styles.item}>
-          <button className={styles.icon} onClick={sharedFacebook}>
+          <button
+            type="button"
+            className={styles.icon}
+            onClick={sharedFacebook}
+          >
             <Image
               src="/images/ic_facebook.svg"
               width={18}
@@ -80,7 +84,11 @@ function SharedModal({ folder, variant, closeModal }: Props) {
         </div>
 
         <div className={styles.item}>
-          <button className={styles.icon} onClick={copyToClipboard}>
+          <button
+            type="button"
+            className={styles.icon}
+            onClick={copyToClipboard}
+          >
             <Image
               src="/images/ic_link.svg"
               width={18}

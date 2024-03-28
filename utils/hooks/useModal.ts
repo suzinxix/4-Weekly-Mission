@@ -8,9 +8,9 @@ export type CloseModal = (modalName: string) => void;
 
 export type UseModal = {
   modals: Modal;
-  openModal: OpenModal;
-  closeModal: CloseModal;
-}
+  openModal: (modalName: string) => void;
+  closeModal: (modalName: string) => void;
+};
 
 const useModal = () => {
   const [modals, setModals] = useState<Modal>({});
@@ -22,7 +22,7 @@ const useModal = () => {
     }));
   };
 
-  const closeModal: CloseModal = (modalName: string) => {
+  const closeModal = (modalName: string) => {
     setModals((prevModals) => ({
       ...prevModals,
       [modalName]: false,
