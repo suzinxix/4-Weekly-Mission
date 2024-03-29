@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 1.4rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.input {
+  display: block;
+  padding: 1.8rem 1.5rem;
+  border-radius: 0.8rem;
+  background: var(--white-color);
+  border: 1px solid var(--gray20-color);
+  margin-bottom: .6rem;
+}
+
+.input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.error {
+  color: var(--red-color);
+  font-size: 1.4rem;
+}
+
+.button {
+  color: var(--grey-light-color);
+  padding: 1.6rem 2rem;
+  font-size: 1.6rem;
+  border-radius: 0.8rem;
+  background-image: var(--gra-purpleblue-to-skyblue);
+}
