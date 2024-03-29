@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactElement } from "react";
 import style from "./shared.module.css";
 import Header from "../../components/shared/Header";
 import CardList from "components/CardList/CardList";
 import SearchBar from "components/Input/SearchBar/SearchBar";
 import { GetLinkResponse } from "types/apis";
 import { fetchGetSampleFolders } from "utils/hooks/useGetSampleData";
+import Layout from "@/components/Layout/Layout";
+import type { NextPageWithLayout } from "../_app";
 
-function SharedPage() {
+const SharedPage: NextPageWithLayout = () => {
   const [fileImg, setFileImg] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [folderName, setFolderName] = useState("");
@@ -38,12 +40,16 @@ function SharedPage() {
       <Header fileImg={fileImg} ownerName={ownerName} folderName={folderName} />
       <div className={style.container}>
         <div className={style.content}>
-          <SearchBar />
+          {/* <SearchBar /> */}
           <CardList items={items} />
         </div>
       </div>
     </div>
   );
 }
+
+SharedPage.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
 
 export default SharedPage;

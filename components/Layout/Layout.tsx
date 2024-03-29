@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className={styles.app}>
       <Navbar />
-      <div className={styles.outlet}>{children}</div>
+      <main className={styles.outlet}>{children}</main>
       <Footer />
     </div>
   );

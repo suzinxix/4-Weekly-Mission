@@ -6,7 +6,7 @@ type Login = {
   password: string;
 };
 
-function SignIn() {
+const SignIn = () => {
   // formState: 양식이 현재 어떤 상태인지를 담고 있는 객체
   //  isSubmitting: 속성을 읽어서 양식이 현재 제출 중인 상태인지 아닌지
   const {

@@ -1,6 +1,9 @@
+import { ReactElement } from "react";
 import Link from "next/link";
+import Layout from "@/components/Layout/Layout";
+import type { NextPageWithLayout } from "./_app";
 
-function HomePage() {
+const HomePage: NextPageWithLayout = () => {
   return (
     <div>
       Home 페이지
@@ -14,6 +17,10 @@ function HomePage() {
       </ul>
     </div>
   );
-}
+};
+
+HomePage.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
 
 export default HomePage;

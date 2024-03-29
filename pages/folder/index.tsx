@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, ReactElement } from "react";
 import NoResults from "@/components/NoResults/NoResults";
 import styles from "./folder.module.css";
 import Header from "@/components/folder/Header";
@@ -21,6 +21,8 @@ import {
 import { GetLinkResponse, GetFolderResponse } from "types/apis";
 import { useGetFolders } from "utils/hooks/useGetFolders";
 import { useGetLinks } from "utils/hooks/useGetLinks";
+import Layout from "@/components/Layout/Layout";
+import type { NextPageWithLayout } from "../_app";
 
 type Nullable<T> = T | null;
 
@@ -40,7 +42,7 @@ interface UseFetchResponse<T> {
   error?: string;
 }
 
-function FolderPage() {
+const FolderPage: NextPageWithLayout = () => {
   let userId = null;
   let value;
 
@@ -185,5 +187,9 @@ function FolderPage() {
     </div>
   );
 }
+
+FolderPage.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
 
 export default FolderPage;
