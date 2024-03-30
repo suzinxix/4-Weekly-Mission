@@ -45,10 +45,10 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
         /> */}
         <img
           src={imgUrl ?? noImage}
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = noImage;
-          }}
+          // onError={(e) => {
+          //   const target = e.target as HTMLImageElement;
+          //   target.src = noImage;
+          // }}
           className={styles.image}
           alt="대표 이미지"
         />
