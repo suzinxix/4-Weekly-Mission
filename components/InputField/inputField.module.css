@@ -1,6 +1,7 @@
 .section {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .label {
@@ -9,8 +10,14 @@
   margin-bottom: 12px;
 }
 
+.wrapper {
+  position: relative;
+  width: inherit;
+}
+
 .input {
   display: block;
+  width: inherit;
   padding: 1.8rem 1.5rem;
   border-radius: 0.8rem;
   background: var(--white-color);
@@ -21,6 +28,14 @@
 .input:focus {
   border-color: var(--primary-color);
   outline: none;
+}
+
+.toggle {
+  position: absolute;
+  background-color: transparent;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .error {
