@@ -1,5 +1,6 @@
 import { MouseEvent, ReactNode } from "react";
 import styles from "./folderButton.module.css";
+import clsx from "clsx";
 
 interface Props {
   isChecked: boolean;
@@ -11,7 +12,9 @@ function FolderButton({ children, onClick, isChecked }: Props) {
   return (
     <button
       type="button"
-      className={`${styles.btn} ${isChecked ? styles.checked : ""}`}
+      className={clsx(styles.btn, {
+        [styles.checked]: isChecked,
+      })}
       onClick={onClick}
     >
       {children}

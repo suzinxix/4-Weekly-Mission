@@ -107,14 +107,12 @@ const FolderPage: NextPageWithLayout = () => {
 
   return (
     <div>
-      <div ref={headerRef}>
-        <Header list={folders} />
-      </div>
+      <Header list={folders} />
+      
+      <div ref={headerRef}></div>
 
       {!isVisibleHeader && !isVisibleFooter && (
-        <div className={styles.header}>
-          <Header list={folders} />
-        </div>
+        <Header list={folders} isClassName={true} />
       )}
 
       <div className={styles.container}>

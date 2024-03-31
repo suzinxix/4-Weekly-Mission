@@ -7,6 +7,13 @@
   background-color: var(--bg-color);
 }
 
+.fixed {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  padding: 1.6rem 0;
+}
+
 .form {
   position: relative;
   display: flex;
@@ -59,7 +66,7 @@
   .input {
     padding: 0.8rem 1rem 0.8rem 3.4rem;
   }
-  .icon{
+  .icon {
     width: 1.6rem;
     left: 1rem;
   }

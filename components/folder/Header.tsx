@@ -1,16 +1,18 @@
 import { useState, ChangeEvent } from "react";
 import Image from "next/image";
-import style from "./header.module.css";
+import styles from "./header.module.css";
 import FolderModal from "components/Modal/FolderModal/FolderModal";
 import useModal from "utils/hooks/useModal";
 import { ADD_LINK } from "utils/constants/strings";
 import { GetFolderResponse } from "types/apis";
+import clsx from 'clsx';
 
 interface Props {
   list: GetFolderResponse[] | null;
+  isClassName?: boolean;
 }
 
-function Header({ list }: Props) {
+function Header({ list, isClassName }: Props) {
   const [value, setValue] = useState("");
   const { modals, openModal, closeModal } = useModal();
 
@@ -19,25 +21,27 @@ function Header({ list }: Props) {
   };
 
   return (
-    <div className={style.container}>
-      <form className={style.form}>
+    <div className={clsx(styles.container, {
+      [styles.fixed]: isClassName,
+    })}>
+      <form className={styles.form}>
         <Image
           src="/images/ic_link.svg"
           width={20}
           height={21}
-          className={style.icon}
+          className={styles.icon}
           alt="링크 아이콘"
         />
         <input
           value={value}
-          className={style.input}
+          className={styles.input}
           type="text"
           placeholder="링크를 추가해 보세요"
           onChange={handleChange}
         />
         <button
           type="button"
-          className={style.button}
+          className={styles.button}
           onClick={(e) => {
             e.preventDefault();
             openModal(ADD_LINK);
