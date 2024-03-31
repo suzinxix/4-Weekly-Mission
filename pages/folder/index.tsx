@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, ReactElement } from "react";
+import { ChangeEvent, useState, ReactElement, useRef, useEffect } from "react";
 import NoResults from "@/components/NoResults/NoResults";
 import styles from "./folder.module.css";
 import Header from "@/components/folder/Header";
@@ -23,6 +23,7 @@ import { useGetFolders } from "utils/hooks/useGetFolders";
 import { useGetLinks } from "utils/hooks/useGetLinks";
 import Layout from "@/components/Layout/Layout";
 import type { NextPageWithLayout } from "../_app";
+import useIntersectionObserver from "utils/hooks/useIntersectionObserver";
 
 type Nullable<T> = T | null;
 
@@ -97,9 +98,24 @@ const FolderPage: NextPageWithLayout = () => {
     setSearchInput("");
   };
 
+  const headerRef = useRef<HTMLDivElement>(null);
+  const fooerRef = useRef<HTMLDivElement>(null);
+  const isVisibleHeader = useIntersectionObserver(headerRef, {
+    threshold: 0.3,
+  });
+  const isVisibleFooter = useIntersectionObserver(fooerRef, { threshold: 1 });
+
   return (
     <div>
-      <Header list={folders} />
+      <div ref={headerRef}>
+        <Header list={folders} />
+      </div>
+
+      {!isVisibleHeader && !isVisibleFooter && (
+        <div className={styles.header}>
+          <Header list={folders} />
+        </div>
+      )}
 
       <div className={styles.container}>
         <div className={styles.content}>
@@ -184,9 +200,10 @@ const FolderPage: NextPageWithLayout = () => {
           )}
         </div>
       </div>
+      <div ref={fooerRef}></div>
     </div>
   );
-}
+};
 
 FolderPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
