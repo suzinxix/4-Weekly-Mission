@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import Link from "next/link";
-import Layout from "@/components/Layout/Layout";
+import Layout from "@/components/common/Layout/Layout";
 import type { NextPageWithLayout } from "./_app";
 
 const HomePage: NextPageWithLayout = () => {

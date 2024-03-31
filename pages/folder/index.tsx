@@ -1,60 +1,44 @@
 import { ChangeEvent, useState, ReactElement, useRef, useEffect } from "react";
-import NoResults from "@/components/NoResults/NoResults";
+import NoResults from "@/components/common/NoResults/NoResults";
 import styles from "./folder.module.css";
-import Header from "@/components/folder/Header";
-import CardList from "@/components/CardList/CardList";
-import SearchBar from "@/components/Input/SearchBar/SearchBar";
-import { ReactComponent as AddIcon } from "public/images/ic_add.svg";
-import DeleteModal from "@/components/Modal/DeleteModal/DeleteModal";
-import SharedModal from "@/components/Modal/SharedModal/SharedModal";
-import FolderModal from "@/components/Modal/FolderModal/FolderModal";
+import Header from "@/components/folder/Header/Header";
+import CardList from "@/components/common/CardList/CardList";
+import SearchBar from "@/components/common/SearchBar/SearchBar";
+import AddIcon from "@/images/ic_add.svg";
+import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
+import SharedModal from "@/components/common/Modal/SharedModal/SharedModal";
+import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import Category from "@/components/folder/Category/Category";
 import ActionButton from "@/components/folder/ActionButton/ActionButton";
-import useModal from "utils/hooks/useModal";
+import useModal from "hooks/useModal";
 import {
   ALL,
   DELETE_FOLDER,
   ADD_FOLDER,
   SHARED,
   EDIT,
-} from "utils/constants/strings";
+} from "constants/strings";
 import { GetLinkResponse, GetFolderResponse } from "types/apis";
-import { useGetFolders } from "utils/hooks/useGetFolders";
-import { useGetLinks } from "utils/hooks/useGetLinks";
-import Layout from "@/components/Layout/Layout";
+import { useGetFolders } from "hooks/useGetFolders";
+import { useGetLinks } from "hooks/useGetLinks";
+import Layout from "@/components/common/Layout/Layout";
 import type { NextPageWithLayout } from "../_app";
-import useIntersectionObserver from "utils/hooks/useIntersectionObserver";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
-type Nullable<T> = T | null;
+const USERID = 11;
 
 export type SelectedCategory = {
-  id: Nullable<number>;
+  id: number | null;
   name: string;
 };
 
-export type ButtonClick = (
-  categoryId: Nullable<number>,
-  categoryName: string
-) => void;
-
 interface UseFetchResponse<T> {
-  data: Nullable<T>;
+  data: T | null;
   loading?: boolean;
-  error?: string;
+  error?: Error | null;
 }
 
 const FolderPage: NextPageWithLayout = () => {
-  let userId = null;
-  let value;
-
-  if (typeof window !== "undefined") {
-    value = localStorage.getItem("userId");
-  }
-
-  if (typeof value === "string") {
-    userId = JSON.parse(value);
-  }
-
   const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>({
     id: null,
     name: ALL,
@@ -63,17 +47,17 @@ const FolderPage: NextPageWithLayout = () => {
   const { modals, openModal, closeModal } = useModal();
 
   const { data: folders }: UseFetchResponse<GetFolderResponse[]> =
-    useGetFolders(10);
+    useGetFolders(USERID);
 
   const { data: folderLinks }: UseFetchResponse<GetLinkResponse[]> =
-    useGetLinks(10, selectedCategory.id);
+    useGetLinks(USERID, selectedCategory.id);
 
-  const [searchInput, setSearchInput] = useState("");
+  const [searchText, setSearchText] = useState("");
 
-  const [searchParam] = useState(["url", "title", "description"]);
+  const searchParam = ["url", "title", "description"];
 
-  const searchItmes = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
+  const handleSearchItems = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
   };
 
   const filterSearchText = (items: GetLinkResponse[]) => {
@@ -84,18 +68,18 @@ const FolderPage: NextPageWithLayout = () => {
           item[newItem]
             .toString()
             .toLowerCase()
-            .indexOf(searchInput.toLowerCase()) > -1
+            .indexOf(searchText.toLowerCase()) > -1
         );
       });
     });
   };
 
-  const handleButtonClick: ButtonClick = (categoryId, categoryName) => {
-    setSelectedCategory({ id: categoryId, name: categoryName });
+  const handleCategoryClick = (id: number | null, name: string) => {
+    setSelectedCategory({ id, name });
   };
 
   const handleDeletedClick = () => {
-    setSearchInput("");
+    setSearchText("");
   };
 
   const headerRef = useRef<HTMLDivElement>(null);
@@ -108,7 +92,7 @@ const FolderPage: NextPageWithLayout = () => {
   return (
     <div>
       <Header list={folders} />
-      
+
       <div ref={headerRef}></div>
 
       {!isVisibleHeader && !isVisibleFooter && (
@@ -118,8 +102,8 @@ const FolderPage: NextPageWithLayout = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <SearchBar
-            value={searchInput}
-            onChange={searchItmes}
+            value={searchText}
+            onChange={handleSearchItems}
             onClick={handleDeletedClick}
           />
 
@@ -129,7 +113,7 @@ const FolderPage: NextPageWithLayout = () => {
                 <Category
                   buttonNames={folders}
                   selectedCategory={selectedCategory}
-                  onClick={handleButtonClick}
+                  onClick={handleCategoryClick}
                 />
 
                 <button
@@ -138,7 +122,7 @@ const FolderPage: NextPageWithLayout = () => {
                   onClick={() => openModal(ADD_FOLDER)}
                 >
                   <span>폴더 추가</span>
-                  {/* <AddIcon className={styles.addIcon} /> */}
+                  <AddIcon className={styles.addIcon} />
                 </button>
               </div>
 

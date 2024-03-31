@@ -1,11 +1,15 @@
 export function formatDate(date: Date) {
-  const options = { year: "numeric", month: "numeric", day: "numeric" } as const
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  } as const;
   return new Date(date).toLocaleDateString(undefined, options);
 }
 
 export function getTimeDifference(createdAt: Date) {
-  const currentDate = +new Date();
-  const createdDate = +new Date(createdAt);
+  const currentDate = new Date().valueOf();
+  const createdDate = new Date(createdAt).valueOf();
 
   const timeDifference = currentDate - createdDate;
   const minutesDifference = Math.floor(timeDifference / (1000 * 60));

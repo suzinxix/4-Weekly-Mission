@@ -1,11 +1,11 @@
 import { useEffect, useState, ReactElement } from "react";
 import style from "./shared.module.css";
-import Header from "../../components/shared/Header";
-import CardList from "components/CardList/CardList";
-import SearchBar from "components/Input/SearchBar/SearchBar";
+import Header from "@/components/shared/Header";
+import CardList from "@/components/common/CardList/CardList";
+import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { GetLinkResponse } from "types/apis";
-import { fetchGetSampleFolders } from "utils/hooks/useGetSampleData";
-import Layout from "@/components/Layout/Layout";
+import { fetchGetSampleFolders } from "hooks/useGetSampleData";
+import Layout from "@/components/common/Layout/Layout";
 import type { NextPageWithLayout } from "../_app";
 
 const SharedPage: NextPageWithLayout = () => {
@@ -40,13 +40,13 @@ const SharedPage: NextPageWithLayout = () => {
       <Header fileImg={fileImg} ownerName={ownerName} folderName={folderName} />
       <div className={style.container}>
         <div className={style.content}>
-          {/* <SearchBar /> */}
+          <SearchBar />
           <CardList items={items} />
         </div>
       </div>
     </div>
   );
-}
+};
 
 SharedPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;

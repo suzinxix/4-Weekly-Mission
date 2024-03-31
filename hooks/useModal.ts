@@ -3,6 +3,7 @@ import { useState } from "react";
 export type Modal = {
   [key: string]: boolean;
 };
+
 export type OpenModal = (modalName: string) => void;
 export type CloseModal = (modalName: string) => void;
 
@@ -12,7 +13,7 @@ export type UseModal = {
   closeModal: (modalName: string) => void;
 };
 
-const useModal = () => {
+const useModal = (): UseModal => {
   const [modals, setModals] = useState<Modal>({});
 
   const openModal = (modalName: string) => {

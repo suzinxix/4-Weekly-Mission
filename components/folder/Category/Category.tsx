@@ -1,7 +1,7 @@
-import FolderButton from "@/components/FolderButton/FolderButton";
+import FolderButton from "@/components/folder/FolderButton/FolderButton";
 import Link from "next/link";
 import styles from "./category.module.css";
-import { ALL } from "utils/constants/strings";
+import { ALL } from "constants/strings";
 import { GetFolderResponse } from "types/apis";
 import { SelectedCategory, ButtonClick } from "pages/folder";
 

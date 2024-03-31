@@ -2,8 +2,16 @@ import { useEffect, useRef, ReactNode } from "react";
 import Image from "next/image";
 import styles from "./base.module.css";
 
+export type VariantModal =
+  | "delete-link"
+  | "delete-folder"
+  | "add-link"
+  | "add-folder"
+  | "shared"
+  | "edit";
+
 export interface BaseModalProps {
-  variant: string;
+  variant: VariantModal;
   closeModal: (modalName: string) => void;
 }
 

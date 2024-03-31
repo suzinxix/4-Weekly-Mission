@@ -4,20 +4,22 @@ import styles from "./navbar.module.css";
 import Profile from "./Profile/Profile";
 import { GetUserResponse } from "types/apis";
 import Image from "next/image";
-import { fetchGetSampleUsers } from "utils/hooks/useGetSampleData";
+import { fetchGetSampleUsers } from "hooks/useGetSampleData";
+import { ID, USER_ID } from "constants/strings";
 
 function Navbar() {
   const [user, setUser] = useState<GetUserResponse>();
 
-  const setLocalStorage = (key: string, val: number): void =>
+  const setLocalStorage = (key: string, val: number) => {
     localStorage.setItem(key, JSON.stringify(val));
+  };
 
   useEffect(() => {
-    fetchGetSampleUsers(1)
+    fetchGetSampleUsers(ID)
       .then((data: GetUserResponse[]) => {
         const [userInfo] = data;
         setUser(userInfo);
-        setLocalStorage("userId", userInfo.id);
+        setLocalStorage(USER_ID, userInfo.id);
       })
       .catch((err) => {
         console.error(err);

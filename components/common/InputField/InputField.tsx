@@ -1,7 +1,7 @@
-import { useState, InputHTMLAttributes, forwardRef } from "react";
+import React, { useState, InputHTMLAttributes, forwardRef } from "react";
 import styles from "./inputField.module.css";
-import EyeOff from "public/images/ic_eye-off.svg";
-import EyeOn from "public/images/ic_eye-on.svg";
+import EyeOff from "@/images/ic_eye-off.svg";
+import EyeOn from "@/images/ic_eye-on.svg";
 
 type Props = {
   id: "email" | "password" | "passwordConfirm";

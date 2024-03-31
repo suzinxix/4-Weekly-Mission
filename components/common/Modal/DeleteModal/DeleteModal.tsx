@@ -1,6 +1,6 @@
 import BaseModeal from "../BaseModal/BaseModal";
 import styles from "./delete.module.css";
-import { DELETE_LINK, DELETE_FOLDER } from "utils/constants/strings";
+import { DELETE_LINK, DELETE_FOLDER } from "constants/strings";
 import { BaseModalProps } from "../BaseModal/BaseModal";
 
 interface Props extends BaseModalProps {

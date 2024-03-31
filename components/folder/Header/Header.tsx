@@ -1,11 +1,11 @@
 import { useState, ChangeEvent } from "react";
 import Image from "next/image";
 import styles from "./header.module.css";
-import FolderModal from "components/Modal/FolderModal/FolderModal";
-import useModal from "utils/hooks/useModal";
-import { ADD_LINK } from "utils/constants/strings";
+import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
+import useModal from "hooks/useModal";
+import { ADD_LINK } from "constants/strings";
 import { GetFolderResponse } from "types/apis";
-import clsx from 'clsx';
+import clsx from "clsx";
 
 interface Props {
   list: GetFolderResponse[] | null;
@@ -21,9 +21,11 @@ function Header({ list, isClassName }: Props) {
   };
 
   return (
-    <div className={clsx(styles.container, {
-      [styles.fixed]: isClassName,
-    })}>
+    <div
+      className={clsx(styles.container, {
+        [styles.fixed]: isClassName,
+      })}
+    >
       <form className={styles.form}>
         <Image
           src="/images/ic_link.svg"

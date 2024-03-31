@@ -1,8 +1,8 @@
 import styles from "./cardlist.module.css";
-import Card from "@/components/Card/Card";
-import NoResults from "@/components/NoResults/NoResults";
+import Card from "@/components/common/Card/Card";
+import NoResults from "@/components/common/NoResults/NoResults";
 import { GetLinkResponse } from "types/apis";
-import { UseModal } from "utils/hooks/useModal";
+import { UseModal } from "hooks/useModal";
 
 interface Props extends Partial<UseModal> {
   items: GetLinkResponse[] | null;

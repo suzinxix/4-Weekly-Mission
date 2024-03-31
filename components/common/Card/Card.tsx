@@ -1,13 +1,13 @@
 import { useState, MouseEvent } from "react";
 import Image from "next/image";
 import styles from "./card.module.css";
-import DeleteModal from "components/Modal/DeleteModal/DeleteModal";
-import FolderModal from "components/Modal/FolderModal/FolderModal";
-import { formatDate, getTimeDifference } from "utils/helpers/dateUtils";
-import { DELETE_LINK, ADD_LINK } from "utils/constants/strings";
+import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
+import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
+import { formatDate, getTimeDifference } from "utils/dateUtils";
+import { DELETE_LINK, ADD_LINK } from "constants/strings";
 import { GetLinkResponse } from "types/apis";
-import { UseModal, Modal, OpenModal, CloseModal } from "utils/hooks/useModal";
-import noImage from "public/images/bg_noImage.png";
+import { UseModal, Modal, OpenModal, CloseModal } from "hooks/useModal";
+import noImage from "@/images/bg_noImage.png";
 
 interface Props extends Partial<UseModal> {
   item: GetLinkResponse;
@@ -19,7 +19,7 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
     item;
   const date = createdAt || created_at;
   const imgUrl = imageSource || image_source;
-  
+
   const isFolderPage = modals && openModal && closeModal;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
