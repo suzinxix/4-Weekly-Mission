@@ -30,7 +30,7 @@ function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.wrap}>
         <Link href="/">
-          <Image src="images/logo.svg" alt="로고" width="133" height="24" />
+          <Image src="images/logo.svg" alt="로고" width="133" height="24" priority/>
         </Link>
         {user ? (
           <Link href="/mypage">

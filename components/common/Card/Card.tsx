@@ -6,7 +6,7 @@ import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import { formatDate, getTimeDifference } from "utils/dateUtils";
 import { DELETE_LINK, ADD_LINK } from "constants/strings";
 import { GetLinkResponse } from "types/apis";
-import { UseModal, Modal, OpenModal, CloseModal } from "hooks/useModal";
+import { UseModal } from "hooks/useModal";
 import noImage from "@/images/bg_noImage.png";
 
 interface Props extends Partial<UseModal> {
@@ -17,12 +17,20 @@ interface Props extends Partial<UseModal> {
 function Card({ item, onClick, modals, openModal, closeModal }: Props) {
   const { createdAt, created_at, description, imageSource, image_source, url } =
     item;
+
   const date = createdAt || created_at;
+
   const imgUrl = imageSource || image_source;
+
+  const absoluteImageUrl = imgUrl?.startsWith('//')
+  ? `https:${imgUrl}`
+  : imgUrl;
 
   const isFolderPage = modals && openModal && closeModal;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const [image, setImage] = useState<string | null>(absoluteImageUrl);
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -32,25 +40,15 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
   return (
     <div className={styles.container} onClick={onClick}>
       <div className={styles.imgWrapper}>
-        {/* <Image
-          src={imgUrl}
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "/images/bg_noImage.png";
+        <Image
+          src={image ?? noImage}
+          onError={() => {
+            setImage("/images/bg_noImage.png");
           }}
           fill
+          sizes="340px"
           alt="대표 이미지"
           className={styles.image}
-          priority
-        /> */}
-        <img
-          src={imgUrl ?? noImage}
-          // onError={(e) => {
-          //   const target = e.target as HTMLImageElement;
-          //   target.src = noImage;
-          // }}
-          className={styles.image}
-          alt="대표 이미지"
         />
         {isFolderPage && (
           <Image
