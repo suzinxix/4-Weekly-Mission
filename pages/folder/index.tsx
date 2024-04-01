@@ -1,16 +1,27 @@
-import { ChangeEvent, useState, ReactElement, useRef, useEffect } from "react";
-import NoResults from "@/components/common/NoResults/NoResults";
+import { ChangeEvent, useState, ReactElement, useRef } from "react";
 import styles from "./folder.module.css";
-import Header from "@/components/folder/Header/Header";
-import CardList from "@/components/common/CardList/CardList";
+
 import SearchBar from "@/components/common/SearchBar/SearchBar";
-import AddIcon from "@/images/ic_add.svg";
+import CardList from "@/components/common/CardList/CardList";
+import NoResults from "@/components/common/NoResults/NoResults";
 import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import SharedModal from "@/components/common/Modal/SharedModal/SharedModal";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
-import Category from "@/components/folder/Category/Category";
+import Layout from "@/components/common/Layout/Layout";
+
+import Header from "@/components/folder/Header/Header";
 import ActionButton from "@/components/folder/ActionButton/ActionButton";
+import Category from "@/components/folder/Category/Category";
+
+import { useGetLinks } from "hooks/useGetLinks";
+import { useGetFolders } from "hooks/useGetFolders";
 import useModal from "hooks/useModal";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+
+import type { LinkItem, Folder } from "types";
+import type { NextPageWithLayout } from "../_app";
+
+import AddIcon from "@/images/ic_add.svg";
 import {
   ALL,
   DELETE_FOLDER,
@@ -18,12 +29,6 @@ import {
   SHARED,
   EDIT,
 } from "constants/strings";
-import { GetLinkResponse, GetFolderResponse } from "types/apis";
-import { useGetFolders } from "hooks/useGetFolders";
-import { useGetLinks } from "hooks/useGetLinks";
-import Layout from "@/components/common/Layout/Layout";
-import type { NextPageWithLayout } from "../_app";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 const USERID = 11;
 
@@ -46,10 +51,10 @@ const FolderPage: NextPageWithLayout = () => {
 
   const { modals, openModal, closeModal } = useModal();
 
-  const { data: folders }: UseFetchResponse<GetFolderResponse[]> =
+  const { data: folders }: UseFetchResponse<Folder[]> =
     useGetFolders(USERID);
 
-  const { data: folderLinks }: UseFetchResponse<GetLinkResponse[]> =
+  const { data: folderLinks }: UseFetchResponse<LinkItem[]> =
     useGetLinks(USERID, selectedCategory.id);
 
   const [searchText, setSearchText] = useState("");
@@ -60,7 +65,7 @@ const FolderPage: NextPageWithLayout = () => {
     setSearchText(e.target.value);
   };
 
-  const filterSearchText = (items: GetLinkResponse[]) => {
+  const filterSearchText = (items: LinkItem[]) => {
     return items.filter((item) => {
       return searchParam.some((newItem) => {
         return (

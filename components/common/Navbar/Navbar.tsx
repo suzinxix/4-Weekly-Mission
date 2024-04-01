@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./navbar.module.css";
 import Profile from "./Profile/Profile";
-import { GetUserResponse } from "types/apis";
-import Image from "next/image";
 import { fetchGetSampleUsers } from "hooks/useGetSampleData";
 import { ID, USER_ID } from "constants/strings";
+import type { User } from "types";
 
 function Navbar() {
-  const [user, setUser] = useState<GetUserResponse>();
+  const [user, setUser] = useState<User>();
 
   const setLocalStorage = (key: string, val: number) => {
     localStorage.setItem(key, JSON.stringify(val));
@@ -16,7 +16,7 @@ function Navbar() {
 
   useEffect(() => {
     fetchGetSampleUsers(ID)
-      .then((data: GetUserResponse[]) => {
+      .then((data: User[]) => {
         const [userInfo] = data;
         setUser(userInfo);
         setLocalStorage(USER_ID, userInfo.id);
@@ -30,7 +30,13 @@ function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.wrap}>
         <Link href="/">
-          <Image src="images/logo.svg" alt="로고" width="133" height="24" priority/>
+          <Image
+            src="images/logo.svg"
+            alt="로고"
+            width="133"
+            height="24"
+            priority
+          />
         </Link>
         {user ? (
           <Link href="/mypage">

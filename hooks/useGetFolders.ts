@@ -1,16 +1,8 @@
-import useFetch from "hooks/useFetch"
+import useFetch from "hooks/useFetch";
+import type { Folder } from "types";
 
-export type GetFolderResponse = {
-    id: number;
-    created_at: Date;
-    name: string;
-    user_id: number;
-    favorite: boolean;
-    link: {
-      count: number;
-    };
-  };
+export type GetFolderResponse = Folder;
 
 export const useGetFolders = (userId: number) => {
-    return useFetch(`${process.env.NEXT_PUBLIC_API}/users/${userId}/folders`)
-}
+  return useFetch(`${process.env.NEXT_PUBLIC_API}/users/${userId}/folders`);
+};

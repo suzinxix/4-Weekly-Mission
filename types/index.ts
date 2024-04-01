@@ -1,4 +1,4 @@
-export type GetFolderResponse = {
+export type Folder = {
   id: number;
   created_at: Date;
   name: string;
@@ -9,7 +9,7 @@ export type GetFolderResponse = {
   };
 };
 
-export type GetUserResponse = {
+export type User = {
   id: number;
   created_at: Date;
   name: string;
@@ -18,7 +18,7 @@ export type GetUserResponse = {
   auth_id: string;
 };
 
-export type GetLinkResponse = {
+export type LinkItem = {
   id: number;
   created_at: Date;
   createdAt: Date;

@@ -1,18 +1,21 @@
 import { useEffect, useState, ReactElement } from "react";
 import style from "./shared.module.css";
-import Header from "@/components/shared/Header";
+
 import CardList from "@/components/common/CardList/CardList";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
-import { GetLinkResponse } from "types/apis";
-import { fetchGetSampleFolders } from "hooks/useGetSampleData";
 import Layout from "@/components/common/Layout/Layout";
+import Header from "@/components/shared/Header";
+
+import { fetchGetSampleFolders } from "hooks/useGetSampleData";
+
 import type { NextPageWithLayout } from "../_app";
+import type { LinkItem } from "types";
 
 const SharedPage: NextPageWithLayout = () => {
   const [fileImg, setFileImg] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [folderName, setFolderName] = useState("");
-  const [items, setItems] = useState<GetLinkResponse[] | null>([]);
+  const [items, setItems] = useState<LinkItem[] | null>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLoad = async () => {

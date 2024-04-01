@@ -1,11 +1,11 @@
 import styles from "./cardlist.module.css";
 import Card from "@/components/common/Card/Card";
 import NoResults from "@/components/common/NoResults/NoResults";
-import { GetLinkResponse } from "types/apis";
+import type { LinkItem } from "hooks/useGetLinks";
 import { UseModal } from "hooks/useModal";
 
 interface Props extends Partial<UseModal> {
-  items: GetLinkResponse[] | null;
+  items: LinkItem[] | null;
 }
 
 function CardList({ items, ...rest }: Props) {

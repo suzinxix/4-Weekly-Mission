@@ -4,11 +4,11 @@ import styles from "./header.module.css";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import useModal from "hooks/useModal";
 import { ADD_LINK } from "constants/strings";
-import { GetFolderResponse } from "types/apis";
 import clsx from "clsx";
+import type { Folder } from "hooks/useGetFolders";
 
 interface Props {
-  list: GetFolderResponse[] | null;
+  list: Folder[] | null;
   isClassName?: boolean;
 }
 

@@ -1,14 +1,17 @@
-import FolderButton from "@/components/folder/FolderButton/FolderButton";
-import Link from "next/link";
 import styles from "./category.module.css";
+import Link from "next/link";
+
+import FolderButton from "@/components/folder/FolderButton/FolderButton";
+
+import type { Folder } from "types";
+import type { SelectedCategory } from "pages/folder";
+
 import { ALL } from "constants/strings";
-import { GetFolderResponse } from "types/apis";
-import { SelectedCategory, ButtonClick } from "pages/folder";
 
 interface Props {
-  buttonNames: GetFolderResponse[];
+  buttonNames: Folder[];
   selectedCategory: SelectedCategory;
-  onClick: ButtonClick;
+  onClick: (id: number | null, name: string) => void;
 }
 
 function Category({ buttonNames, selectedCategory, onClick }: Props) {

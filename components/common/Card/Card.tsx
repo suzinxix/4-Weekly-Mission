@@ -5,15 +5,16 @@ import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import { formatDate, getTimeDifference } from "utils/dateUtils";
 import { DELETE_LINK, ADD_LINK } from "constants/strings";
-import { GetLinkResponse } from "types/apis";
+import type { LinkItem } from "hooks/useGetLinks";
 import { UseModal } from "hooks/useModal";
 import noImage from "@/images/bg_noImage.png";
 
 interface Props extends Partial<UseModal> {
-  item: GetLinkResponse;
+  item: LinkItem;
   onClick: () => void;
 }
 
+// TODO: Card 컴포넌트 분리
 function Card({ item, onClick, modals, openModal, closeModal }: Props) {
   const { createdAt, created_at, description, imageSource, image_source, url } =
     item;
@@ -22,9 +23,9 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
 
   const imgUrl = imageSource || image_source;
 
-  const absoluteImageUrl = imgUrl?.startsWith('//')
-  ? `https:${imgUrl}`
-  : imgUrl;
+  const absoluteImageUrl = imgUrl?.startsWith("//")
+    ? `https:${imgUrl}`
+    : imgUrl;
 
   const isFolderPage = modals && openModal && closeModal;
 
