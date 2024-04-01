@@ -26,14 +26,6 @@ function Category({ buttonNames, selectedCategory, onClick }: Props) {
         </FolderButton>
       </Link>
       {buttonNames.map(({ id, name }) => (
-        // <Link href={`/shared/${id}`} key={id}>
-        //   <FolderButton
-        //     ischecked={selectedCategory.name === name}
-        //     onClick={() => onClick(id, name)}
-        //   >
-        //     {name}
-        //   </FolderButton>
-        // </Link>
         <FolderButton
           key={id}
           isChecked={selectedCategory.name === name}
