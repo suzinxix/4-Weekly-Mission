@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "lib/LoginSchema";
-import InputField from "@/components/InputField/InputField";
+import InputField from "@/components/common/InputField/InputField";
 import styles from "./signin.module.css";
 
 const SignIn = () => {

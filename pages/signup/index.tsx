@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./signup.module.css";
 import { RegisterSchema } from "lib/RegisterSchema";
-import InputField from "@/components/InputField/InputField";
+import InputField from "@/components/common/InputField/InputField";
 
 const SignUp = () => {
   const {
