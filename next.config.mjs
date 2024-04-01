@@ -63,6 +63,22 @@ const nextConfig = {
         protocol: "https",
         hostname: "t1.kakaocdn.net",
       },
+      {
+        protocol: "https",
+        hostname: "codeit-frontend.codeit.com",
+      },
+      {
+        protocol: "https",
+        hostname: "reactjs.org",
+      },
+      {
+        protocol: "https",
+        hostname: "tanstack.com",
+      },
+      {
+        protocol: "https",
+        hostname: "static.cdninstagram.com",
+      },
     ],
   },
 };
