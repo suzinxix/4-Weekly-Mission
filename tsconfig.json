@@ -20,27 +20,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": [
-    "src",
-    "pages",
-    "components/folder/ActionButton",
-    "components/folder/Category",
-    "components/folder/Header/Header.tsx",
-    "components/shared/Header.tsx",
-    "components/folder/FolderButton",
-    "components/common/Card",
-    "components/common/CardList",
-    "components/common/InputField",
-    "components/common/Modal",
-    "components/common/Layout",
-    "components/common/Footer",
-    "components/common/Navbar",
-    "components/common/NoResults",
-    "components/common/SearchBar",
-    "utils",
-    "types",
-    "constants",
-    "hooks"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
