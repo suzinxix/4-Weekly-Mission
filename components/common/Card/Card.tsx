@@ -5,7 +5,7 @@ import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import { formatDate, getTimeDifference } from "utils/dateUtils";
 import { DELETE_LINK, ADD_LINK } from "constants/strings";
-import type { LinkItem } from "hooks/useGetLinks";
+import type { LinkItem } from "types";
 import { UseModal } from "hooks/useModal";
 import noImage from "@/images/bg_noImage.png";
 
