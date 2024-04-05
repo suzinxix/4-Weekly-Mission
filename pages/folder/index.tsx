@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, ReactElement, useRef } from "react";
+import React, { ChangeEvent, useState, ReactElement, useRef } from "react";
 import styles from "./folder.module.css";
 
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -22,13 +22,7 @@ import type { LinkItem, Folder } from "types";
 import type { NextPageWithLayout } from "../_app";
 
 import AddIcon from "@/images/ic_add.svg";
-import {
-  ALL,
-  DELETE_FOLDER,
-  ADD_FOLDER,
-  SHARED,
-  EDIT,
-} from "constants/strings";
+import { ALL, MODALS } from "constants/modals";
 
 const USERID = 11;
 
@@ -51,11 +45,12 @@ const FolderPage: NextPageWithLayout = () => {
 
   const { modals, openModal, closeModal } = useModal();
 
-  const { data: folders }: UseFetchResponse<Folder[]> =
-    useGetFolders(USERID);
+  const { data: folders }: UseFetchResponse<Folder[]> = useGetFolders(USERID);
 
-  const { data: folderLinks }: UseFetchResponse<LinkItem[]> =
-    useGetLinks(USERID, selectedCategory.id);
+  const { data: folderLinks }: UseFetchResponse<LinkItem[]> = useGetLinks(
+    USERID,
+    selectedCategory.id
+  );
 
   const [searchText, setSearchText] = useState("");
 
@@ -88,22 +83,22 @@ const FolderPage: NextPageWithLayout = () => {
   };
 
   const headerRef = useRef<HTMLDivElement>(null);
-  const footerRef = useRef<HTMLDivElement>(null);
+  const fooerRef = useRef<HTMLDivElement>(null);
   const isVisibleHeader = useIntersectionObserver(headerRef, {
     threshold: 0.3,
   });
-  const isVisibleFooter = useIntersectionObserver(footerRef, { threshold: 1 });
+  const isVisibleFooter = useIntersectionObserver(fooerRef, { threshold: 1 });
 
   return (
     <div>
       <Header folderList={folders} />
 
-      <div ref={headerRef} />
+      <div ref={headerRef}></div>
 
       {!isVisibleHeader && !isVisibleFooter && (
         <Header folderList={folders} isClassName={true} />
       )}
-
+{/* 
       <div className={styles.container}>
         <div className={styles.content}>
           <SearchBar
@@ -131,10 +126,10 @@ const FolderPage: NextPageWithLayout = () => {
                 </button>
               </div>
 
-              {modals[ADD_FOLDER] && (
+              {/* {modals[ADD_FOLDER] && (
                 <FolderModal variant={ADD_FOLDER} closeModal={closeModal} />
-              )}
-
+              )} */}
+{/* 
               <div className={styles.bar}>
                 <div className={styles.categoryName}>
                   {selectedCategory.name}
@@ -159,12 +154,12 @@ const FolderPage: NextPageWithLayout = () => {
                   closeModal={closeModal}
                   folder={selectedCategory.name}
                 />
-              )}
+              )} */}
 
-              {modals[EDIT] && (
+              {/* {modals[EDIT] && (
                 <FolderModal variant={EDIT} closeModal={closeModal} />
-              )}
-
+              )} */}
+{/* 
               {modals[DELETE_FOLDER] && (
                 <DeleteModal
                   variant={DELETE_FOLDER}
@@ -186,8 +181,8 @@ const FolderPage: NextPageWithLayout = () => {
             <NoResults />
           )}
         </div>
-      </div>
-      <div ref={footerRef} />
+      </div> */} 
+      <div ref={fooerRef}></div>
     </div>
   );
 };

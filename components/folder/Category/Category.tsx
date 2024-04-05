@@ -6,7 +6,7 @@ import FolderButton from "@/components/folder/FolderButton/FolderButton";
 import type { Folder } from "types";
 import type { SelectedCategory } from "pages/folder";
 
-import { ALL } from "constants/strings";
+import { ALL } from "constants";
 
 interface Props {
   buttonNames: Folder[];

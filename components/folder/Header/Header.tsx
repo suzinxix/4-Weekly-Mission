@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./header.module.css";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import useModal from "hooks/useModal";
-import { ADD_LINK } from "constants/strings";
+import { MODALS } from "constants/modals";
 import clsx from "clsx";
 import type { Folder } from "types";
 
@@ -13,11 +13,20 @@ interface Props {
 }
 
 function Header({ folderList, isClassName }: Props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState("");
-  const { modals, openModal, closeModal } = useModal();
+  // const { modals, openModal, closeModal } = useModal();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -44,21 +53,26 @@ function Header({ folderList, isClassName }: Props) {
         <button
           type="button"
           className={styles.button}
-          onClick={(e) => {
-            e.preventDefault();
-            openModal(ADD_LINK);
-          }}
+          onClick={openModal}
         >
           추가하기
         </button>
-        {modals[ADD_LINK] && (
+        <FolderModal
+          isOpen={isModalOpen}
+          link={value}
+          title="폴더에 추가하기"
+          buttonText="추가하기"
+          folderList={folderList}
+          onCloseClick={closeModal}
+        />
+        {/* {modals[ADD_LINK] && (
           <FolderModal
             variant={ADD_LINK}
             closeModal={closeModal}
             link={value}
             list={folderList}
           />
-        )}
+        )} */}
       </form>
     </div>
   );

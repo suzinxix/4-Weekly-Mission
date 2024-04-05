@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./navbar.module.css";
 import Profile from "./Profile/Profile";
 import { fetchGetSampleUsers } from "hooks/useGetSampleData";
-import { ID, USER_ID } from "constants/strings";
+import { ID, USER_ID } from "constants";
 import type { User } from "types";
 
 function Navbar() {

@@ -9,3 +9,13 @@ export const ADD_LINK = "add-link";
 export const ADD_FOLDER = "add-folder";
 export const SHARED = "shared";
 export const EDIT = "edit";
+
+export const MODALS = {
+    deleteLink: "deleteLink",
+    deleteFolder: "deleteFolder",
+    addFolder: "addFolder",
+    addLink: "addLink",
+    share: "share",
+    rename: "rename",
+    delete: "delete",
+  };

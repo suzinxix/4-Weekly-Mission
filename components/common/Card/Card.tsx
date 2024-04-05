@@ -1,21 +1,21 @@
 import { useState, MouseEvent } from "react";
 import Image from "next/image";
 import styles from "./card.module.css";
-import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
-import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
+// import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
+// import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import { formatDate, getTimeDifference } from "utils/date";
-import { DELETE_LINK, ADD_LINK } from "constants/strings";
+import { DELETE_LINK, ADD_LINK } from "constants";
 import type { LinkItem } from "types";
-import { UseModal } from "hooks/useModal";
+// import { UseModal } from "hooks/useModal";
 import noImage from "@/images/bg_noImage.png";
 
-interface Props extends Partial<UseModal> {
+interface Props {
   item: LinkItem;
   onClick: () => void;
 }
 
 // TODO: Card 컴포넌트 분리
-function Card({ item, onClick, modals, openModal, closeModal }: Props) {
+function Card({ item, onClick }: Props) {
   const { createdAt, created_at, description, imageSource, image_source, url } =
     item;
 
@@ -27,7 +27,7 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
     ? `https:${imgUrl}`
     : imgUrl;
 
-  const isFolderPage = modals && openModal && closeModal;
+  // const isFolderPage = modals && openModal && closeModal;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -51,7 +51,7 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
           alt="대표 이미지"
           className={styles.image}
         />
-        {isFolderPage && (
+        {/* {isFolderPage && (
           <Image
             src="/images/ic_star.svg"
             width={34}
@@ -60,13 +60,21 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
             className={styles.star}
             priority
           />
-        )}
+        )} */}
+        <Image
+          src="/images/ic_star.svg"
+          width={34}
+          height={34}
+          alt="별모양 아이콘"
+          className={styles.star}
+          priority
+        />
       </div>
 
       <div className={styles.info}>
         <div className={styles.infoTop}>
           <div className={styles.difference}>{getTimeDifference(date)}</div>
-          {isFolderPage && (
+          {/* {isFolderPage && (
             <div className={styles.menu}>
               <button
                 type="button"
@@ -120,7 +128,7 @@ function Card({ item, onClick, modals, openModal, closeModal }: Props) {
                 </div>
               )}
             </div>
-          )}
+          )} */}
         </div>
         <div className={styles.description}>{description}</div>
         <div className={styles.date}>{formatDate(date)}</div>
