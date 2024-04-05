@@ -1,18 +1,20 @@
-import React, { useState, InputHTMLAttributes, forwardRef } from "react";
+import { useState, InputHTMLAttributes, forwardRef } from "react";
 import styles from "./inputField.module.css";
 import EyeOff from "@/images/ic_eye-off.svg";
 import EyeOn from "@/images/ic_eye-on.svg";
 
 type Props = {
-  id: "email" | "password" | "passwordConfirm";
+  id: string;
   type: "text" | "email" | "password";
-  label: "이메일" | "비밀번호" | "비밀번호 확인";
-  error?: string;
+  label: string;
+  errorMessage?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const InputField = forwardRef<HTMLInputElement, Props>(
-  ({ id, type, label, error, ...rest }, ref) => {
+  ({ id, type, label, errorMessage, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
+    const varientType =
+      type !== "password" ? "email" : showPassword ? "text" : "password";
 
     return (
       <div className={styles.section}>
@@ -23,11 +25,11 @@ const InputField = forwardRef<HTMLInputElement, Props>(
         <div className={styles.wrapper}>
           <input
             id={id}
-            type={showPassword ? "text" : "password"}
+            type={varientType}
             ref={ref}
-            aria-invalid={error ? "true" : "false"}
+            aria-invalid={errorMessage ? "true" : "false"}
             className={styles.input}
-            style={{ ...(error && { border: "1px solid var(--red-color)" }) }}
+            style={{ ...(errorMessage && { border: "1px solid var(--red-color)" }) }}
             {...rest}
           />
 
@@ -50,7 +52,7 @@ const InputField = forwardRef<HTMLInputElement, Props>(
           )}
         </div>
 
-        {error && <p className={styles.error}>{error}</p>}
+        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       </div>
     );
   }

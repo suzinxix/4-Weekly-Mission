@@ -9,10 +9,10 @@ const HomePage: NextPageWithLayout = () => {
       Home 페이지
       <ul>
         <li>
-          <Link href="folder">폴더 페이지 이동</Link>
+          <Link href="/folder">폴더 페이지 이동</Link>
         </li>
         <li>
-          <Link href="shared">공유 페이지 이동</Link>
+          <Link href="/shared">공유 페이지 이동</Link>
         </li>
       </ul>
     </div>

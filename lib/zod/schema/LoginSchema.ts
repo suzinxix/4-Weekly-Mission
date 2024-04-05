@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export type LoginSchema = z.infer<typeof LoginSchema>;
+export type Login = z.infer<typeof LoginSchema>;
 
 export const LoginSchema = z.object({
   email: z

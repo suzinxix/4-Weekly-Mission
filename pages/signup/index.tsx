@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./signup.module.css";
-import { RegisterSchema } from "lib/RegisterSchema";
+import { RegisterSchema } from "lib/zod/schema/RegisterSchema";
 import InputField from "@/components/common/InputField/InputField";
 
 const SignUp = () => {
@@ -20,11 +20,10 @@ const SignUp = () => {
 
   return (
     <div className={styles.container}>
-
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <InputField
           id="email"
-          type="email"
+          type="text"
           label="이메일"
           placeholder="이메일을 입력해주세요"
           error={errors.email?.message}

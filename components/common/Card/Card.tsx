@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./card.module.css";
 import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
-import { formatDate, getTimeDifference } from "utils/dateUtils";
+import { formatDate, getTimeDifference } from "utils/date";
 import { DELETE_LINK, ADD_LINK } from "constants/strings";
 import type { LinkItem } from "types";
 import { UseModal } from "hooks/useModal";

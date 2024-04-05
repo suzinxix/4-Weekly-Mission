@@ -5,14 +5,14 @@ import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import useModal from "hooks/useModal";
 import { ADD_LINK } from "constants/strings";
 import clsx from "clsx";
-import type { Folder } from "hooks/useGetFolders";
+import type { Folder } from "types";
 
 interface Props {
-  list: Folder[] | null;
+  folderList: Folder[] | null;
   isClassName?: boolean;
 }
 
-function Header({ list, isClassName }: Props) {
+function Header({ folderList, isClassName }: Props) {
   const [value, setValue] = useState("");
   const { modals, openModal, closeModal } = useModal();
 
@@ -56,7 +56,7 @@ function Header({ list, isClassName }: Props) {
             variant={ADD_LINK}
             closeModal={closeModal}
             link={value}
-            list={list}
+            list={folderList}
           />
         )}
       </form>

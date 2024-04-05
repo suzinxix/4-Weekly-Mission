@@ -43,9 +43,7 @@ function Navbar() {
             <Profile email={user.email} imgUrl={user.image_source} />
           </Link>
         ) : (
-          <Link href="/login">
-            <button type="button">로그인</button>
-          </Link>
+          <Link href="/login">로그인</Link>
         )}
       </div>
     </nav>

@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema } from "lib/LoginSchema";
+import { LoginSchema, Login } from "lib/zod/schema/LoginSchema";
 import InputField from "@/components/common/InputField/InputField";
 import styles from "./signin.module.css";
 
@@ -9,12 +9,12 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginSchema>({
+  } = useForm<Login>({
     mode: "onBlur",
     resolver: zodResolver(LoginSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginSchema> = (data) => {
+  const onSubmit: SubmitHandler<Login> = (data) => {
     console.log(data);
   };
 
@@ -26,7 +26,7 @@ const SignIn = () => {
           type="email"
           label="이메일"
           placeholder="이메일을 입력해주세요"
-          error={errors.email?.message}
+          errorMessage={errors.email?.message}
           {...register("email")}
         />
 
@@ -35,7 +35,7 @@ const SignIn = () => {
           type="password"
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요."
-          error={errors.password?.message}
+          errorMessage={errors.password?.message}
           {...register("password")}
         />
 

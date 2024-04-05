@@ -88,20 +88,20 @@ const FolderPage: NextPageWithLayout = () => {
   };
 
   const headerRef = useRef<HTMLDivElement>(null);
-  const fooerRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
   const isVisibleHeader = useIntersectionObserver(headerRef, {
     threshold: 0.3,
   });
-  const isVisibleFooter = useIntersectionObserver(fooerRef, { threshold: 1 });
+  const isVisibleFooter = useIntersectionObserver(footerRef, { threshold: 1 });
 
   return (
     <div>
-      <Header list={folders} />
+      <Header folderList={folders} />
 
-      <div ref={headerRef}></div>
+      <div ref={headerRef} />
 
       {!isVisibleHeader && !isVisibleFooter && (
-        <Header list={folders} isClassName={true} />
+        <Header folderList={folders} isClassName={true} />
       )}
 
       <div className={styles.container}>
@@ -187,7 +187,7 @@ const FolderPage: NextPageWithLayout = () => {
           )}
         </div>
       </div>
-      <div ref={fooerRef}></div>
+      <div ref={footerRef} />
     </div>
   );
 };
