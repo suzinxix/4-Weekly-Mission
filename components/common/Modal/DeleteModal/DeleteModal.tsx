@@ -1,32 +1,28 @@
-import BaseModeal from "../BaseModal/BaseModal";
+import { MouseEventHandler } from "react";
 import styles from "./delete.module.css";
-import { DELETE_LINK, DELETE_FOLDER } from "constants";
-import { BaseModalProps } from "../BaseModal/BaseModal";
+import BaseModal from "@/components/common/Modal/BaseModal/BaseModal";
 
-interface Props extends BaseModalProps {
-  deleted: string;
-}
+type Props = {
+  isOpen: boolean;
+  title: string;
+  deletion: string;
+  onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+};
 
-function DeleteModal({ variant, deleted, closeModal }: Props) {
-  let title;
-  if (variant === DELETE_FOLDER) {
-    title = "폴더";
-  } else if (variant === DELETE_LINK) {
-    title = "링크";
-  }
-
+const DeleteModal = ({ isOpen, title, deletion, onCloseClick }: Props) => {
   return (
-    <BaseModeal
-      title={`${title} 삭제`}
-      variant={variant}
-      closeModal={closeModal}
+    <BaseModal
+      title={title}
+      isOpen={isOpen}
+      onCloseClick={onCloseClick}
     >
-      <p className={styles.deleted}>{deleted}</p>
+      <p className={styles.deleted}>{deletion}</p>
+
       <button type="button" className={styles.deletedBtn}>
         삭제하기
       </button>
-    </BaseModeal>
+    </BaseModal>
   );
-}
+};
 
 export default DeleteModal;

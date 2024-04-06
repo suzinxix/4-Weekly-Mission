@@ -1,14 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, MouseEventHandler } from "react";
 import Image from "next/image";
-import BaseModeal from "../BaseModal/BaseModal";
-import styles from "./shared.module.css";
-import { BaseModalProps } from "../BaseModal/BaseModal";
+import styles from "./share.module.css";
+import BaseModal from "@/components/common/Modal/BaseModal/BaseModal";
 
-interface Props extends BaseModalProps {
-  folder: string;
-}
+type Props = {
+  isOpen: boolean;
+  title: string;
+  folderName: string;
+  onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+};
 
-function SharedModal({ folder, variant, closeModal }: Props) {
+const ShareModal = ({ isOpen, title, folderName, onCloseClick }: Props) => {
   const currentUrl = window.location.href;
 
   const copyToClipboard = () => {
@@ -52,8 +54,13 @@ function SharedModal({ folder, variant, closeModal }: Props) {
   }, []);
 
   return (
-    <BaseModeal title={`폴더 공유`} variant={variant} closeModal={closeModal}>
-      <p className={styles.folder}>{folder}</p>
+    <BaseModal
+      isOpen={isOpen}
+      title={title}
+      onCloseClick={onCloseClick}
+    >
+      <p className={styles.folder}>{folderName}</p>
+
       <div className={styles.items}>
         <div className={styles.item}>
           <button type="button" className={styles.icon} onClick={sharedKakao}>
@@ -99,8 +106,8 @@ function SharedModal({ folder, variant, closeModal }: Props) {
           <p className={styles.name}>링크 공유</p>
         </div>
       </div>
-    </BaseModeal>
+    </BaseModal>
   );
-}
+};
 
-export default SharedModal;
+export default ShareModal;

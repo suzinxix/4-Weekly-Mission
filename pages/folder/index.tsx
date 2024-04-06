@@ -4,24 +4,17 @@ import styles from "./folder.module.css";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import CardList from "@/components/common/CardList/CardList";
 import NoResults from "@/components/common/NoResults/NoResults";
-import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
-import SharedModal from "@/components/common/Modal/SharedModal/SharedModal";
-import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import Layout from "@/components/common/Layout/Layout";
-
 import Header from "@/components/folder/Header/Header";
-import ActionButton from "@/components/folder/ActionButton/ActionButton";
-import Category from "@/components/folder/Category/Category";
+import FolderToolBar from "@/components/folder/FolderToolBar/FolderToolBar";
 
 import { useGetLinks } from "hooks/useGetLinks";
 import { useGetFolders } from "hooks/useGetFolders";
-import useModal from "hooks/useModal";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 import type { LinkItem, Folder } from "types";
 import type { NextPageWithLayout } from "../_app";
 
-import AddIcon from "@/images/ic_add.svg";
 import { ALL, MODALS } from "constants/modals";
 
 const USERID = 11;
@@ -42,8 +35,6 @@ const FolderPage: NextPageWithLayout = () => {
     id: null,
     name: ALL,
   });
-
-  const { modals, openModal, closeModal } = useModal();
 
   const { data: folders }: UseFetchResponse<Folder[]> = useGetFolders(USERID);
 
@@ -98,82 +89,27 @@ const FolderPage: NextPageWithLayout = () => {
       {!isVisibleHeader && !isVisibleFooter && (
         <Header folderList={folders} isClassName={true} />
       )}
-{/* 
+
       <div className={styles.container}>
         <div className={styles.content}>
           <SearchBar
             value={searchText}
             onChange={handleSearchItems}
-            onClick={handleDeletedClick}
+            onCloseClick={handleDeletedClick}
           />
 
           {folders ? (
             <div>
-              <div className={styles.category}>
-                <Category
-                  buttonNames={folders}
-                  selectedCategory={selectedCategory}
-                  onClick={handleCategoryClick}
-                />
-
-                <button
-                  type="button"
-                  className={styles.addButton}
-                  onClick={() => openModal(ADD_FOLDER)}
-                >
-                  <span>폴더 추가</span>
-                  <AddIcon className={styles.addIcon} />
-                </button>
-              </div>
-
-              {/* {modals[ADD_FOLDER] && (
-                <FolderModal variant={ADD_FOLDER} closeModal={closeModal} />
-              )} */}
-{/* 
-              <div className={styles.bar}>
-                <div className={styles.categoryName}>
-                  {selectedCategory.name}
-                </div>
-
-                <div
-                  className={`${styles.barButtons} ${
-                    selectedCategory.name === ALL ? styles.hidden : ""
-                  }`}
-                >
-                  <ActionButton openModal={openModal} variant={SHARED} />
-
-                  <ActionButton openModal={openModal} variant={EDIT} />
-
-                  <ActionButton openModal={openModal} variant={DELETE_FOLDER} />
-                </div>
-              </div>
-
-              {modals[SHARED] && (
-                <SharedModal
-                  variant={SHARED}
-                  closeModal={closeModal}
-                  folder={selectedCategory.name}
-                />
-              )} */}
-
-              {/* {modals[EDIT] && (
-                <FolderModal variant={EDIT} closeModal={closeModal} />
-              )} */}
-{/* 
-              {modals[DELETE_FOLDER] && (
-                <DeleteModal
-                  variant={DELETE_FOLDER}
-                  closeModal={closeModal}
-                  deleted={selectedCategory.name}
-                />
-              )}
+              <FolderToolBar
+                folders={folders}
+                selectedCategory={selectedCategory}
+                onCategoryClick={handleCategoryClick}
+              />
 
               {folderLinks && (
                 <CardList
                   items={filterSearchText(folderLinks)}
-                  modals={modals}
-                  openModal={openModal}
-                  closeModal={closeModal}
+                  folderList={folders}
                 />
               )}
             </div>
@@ -181,7 +117,7 @@ const FolderPage: NextPageWithLayout = () => {
             <NoResults />
           )}
         </div>
-      </div> */} 
+      </div>
       <div ref={fooerRef}></div>
     </div>
   );

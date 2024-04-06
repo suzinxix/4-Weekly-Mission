@@ -1,10 +1,8 @@
 import { useState, ChangeEvent } from "react";
 import Image from "next/image";
+import clsx from "clsx";
 import styles from "./header.module.css";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
-import useModal from "hooks/useModal";
-import { MODALS } from "constants/modals";
-import clsx from "clsx";
 import type { Folder } from "types";
 
 interface Props {
@@ -15,7 +13,6 @@ interface Props {
 function Header({ folderList, isClassName }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState("");
-  // const { modals, openModal, closeModal } = useModal();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -23,7 +20,7 @@ function Header({ folderList, isClassName }: Props) {
 
   const openModal = () => {
     setIsModalOpen(true);
-  }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -50,13 +47,11 @@ function Header({ folderList, isClassName }: Props) {
           placeholder="링크를 추가해 보세요"
           onChange={handleChange}
         />
-        <button
-          type="button"
-          className={styles.button}
-          onClick={openModal}
-        >
+
+        <button type="button" className={styles.button} onClick={openModal}>
           추가하기
         </button>
+
         <FolderModal
           isOpen={isModalOpen}
           link={value}
@@ -65,14 +60,6 @@ function Header({ folderList, isClassName }: Props) {
           folderList={folderList}
           onCloseClick={closeModal}
         />
-        {/* {modals[ADD_LINK] && (
-          <FolderModal
-            variant={ADD_LINK}
-            closeModal={closeModal}
-            link={value}
-            list={folderList}
-          />
-        )} */}
       </form>
     </div>
   );

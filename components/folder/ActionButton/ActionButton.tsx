@@ -1,24 +1,26 @@
+import { MouseEventHandler } from "react";
 import Image from "next/image";
 import styles from "./actionButton.module.css";
+import { MODALS } from "constants/modals";
 
-interface Props {
-  openModal: (modalName: string) => void;
-  variant: string;
-}
+type Modals = MODALS.share | MODALS.edit | MODALS.deleteFolder;
 
-interface Variant {
-  [key: string]: {
-    icon: string;
-    name: string;
-    imgUrl: string;
-  };
-}
+type Props = {
+  variant: Modals;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+};
 
-function ActionButton({ openModal, variant }: Props) {
-  const variantInfo: Variant = {
-    shared: { icon: "공유", name: "공유", imgUrl: "/images/ic_share.svg" },
+type Variant = {
+  icon: string;
+  name: string;
+  imgUrl: string;
+};
+
+function ActionButton({ onClick, variant }: Props) {
+  const variantInfo: Record<Modals, Variant> = {
+    share: { icon: "공유", name: "공유", imgUrl: "/images/ic_share.svg" },
     edit: { icon: "펜", name: "이름변경", imgUrl: "images/ic_pen.svg" },
-    "delete-folder": {
+    deleteFolder: {
       icon: "쓰레기통",
       name: "삭제",
       imgUrl: "/images/ic_trash.svg",
@@ -31,7 +33,7 @@ function ActionButton({ openModal, variant }: Props) {
     <button
       type="button"
       className={styles.barButton}
-      onClick={() => openModal(variant)}
+      onClick={onClick}
     >
       <Image
         src={imgUrl}

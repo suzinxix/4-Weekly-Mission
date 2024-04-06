@@ -1,21 +1,22 @@
 import { useState, MouseEvent } from "react";
 import Image from "next/image";
 import styles from "./card.module.css";
-// import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
-// import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
+
+import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
+import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
+
 import { formatDate, getTimeDifference } from "utils/date";
-import { DELETE_LINK, ADD_LINK } from "constants";
-import type { LinkItem } from "types";
-// import { UseModal } from "hooks/useModal";
+import { MODALS } from "constants/modals";
+import type { LinkItem, Folder } from "types";
 import noImage from "@/images/bg_noImage.png";
 
 interface Props {
   item: LinkItem;
-  onClick: () => void;
+  folderList: Folder[] | null;
 }
 
 // TODO: Card 컴포넌트 분리
-function Card({ item, onClick }: Props) {
+function Card({ item, folderList }: Props) {
   const { createdAt, created_at, description, imageSource, image_source, url } =
     item;
 
@@ -27,31 +28,50 @@ function Card({ item, onClick }: Props) {
     ? `https:${imgUrl}`
     : imgUrl;
 
-  // const isFolderPage = modals && openModal && closeModal;
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [image, setImage] = useState<string | null>(absoluteImageUrl);
+
+  const [currentModal, setCurrentModal] = useState<string | null>(null);
+
+  const closeModal = () => {
+    setCurrentModal(null);
+  };
+
+  const handleCardClick = (url: string) => {
+    window.open(url, "_blank");
+  };
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setIsMenuOpen((prev) => !prev);
   };
 
+  const handleOptionClick = (
+    e: MouseEvent<HTMLButtonElement>,
+    modal: MODALS
+  ) => {
+    e.stopPropagation();
+    setCurrentModal(modal);
+  };
+
   return (
-    <div className={styles.container} onClick={onClick}>
-      <div className={styles.imgWrapper}>
-        <Image
-          src={image ?? noImage}
-          onError={() => {
-            setImage("/images/bg_noImage.png");
-          }}
-          fill
-          sizes="340px"
-          alt="대표 이미지"
-          className={styles.image}
-        />
-        {/* {isFolderPage && (
+    <>
+      <div
+        className={styles.container}
+        onClick={() => handleCardClick(item.url)}
+      >
+        <div className={styles.imgWrapper}>
+          <Image
+            src={image ?? noImage}
+            onError={() => {
+              setImage("/images/bg_noImage.png");
+            }}
+            fill
+            sizes="340px"
+            alt="대표 이미지"
+            className={styles.image}
+          />
           <Image
             src="/images/ic_star.svg"
             width={34}
@@ -60,21 +80,12 @@ function Card({ item, onClick }: Props) {
             className={styles.star}
             priority
           />
-        )} */}
-        <Image
-          src="/images/ic_star.svg"
-          width={34}
-          height={34}
-          alt="별모양 아이콘"
-          className={styles.star}
-          priority
-        />
-      </div>
+        </div>
 
-      <div className={styles.info}>
-        <div className={styles.infoTop}>
-          <div className={styles.difference}>{getTimeDifference(date)}</div>
-          {/* {isFolderPage && (
+        <div className={styles.info}>
+          <div className={styles.infoTop}>
+            <div className={styles.difference}>{getTimeDifference(date)}</div>
+
             <div className={styles.menu}>
               <button
                 type="button"
@@ -89,51 +100,55 @@ function Card({ item, onClick }: Props) {
                   priority
                 />
               </button>
+
               {isMenuOpen && (
                 <div className={styles.options}>
                   <button
                     type="button"
                     className={styles.option}
                     onClick={(e) => {
-                      e.stopPropagation();
-                      openModal(DELETE_LINK);
+                      handleOptionClick(e, MODALS.deleteLink);
                     }}
                   >
                     삭제하기
                   </button>
-                  {modals[DELETE_LINK] && (
-                    <DeleteModal
-                      variant={DELETE_LINK}
-                      deleted={url}
-                      closeModal={closeModal}
-                    />
-                  )}
+
                   <button
                     type="button"
                     className={styles.option}
                     onClick={(e) => {
-                      e.stopPropagation();
-                      openModal(ADD_LINK);
+                      handleOptionClick(e, MODALS.addLink);
                     }}
                   >
                     폴더에 추가
                   </button>
-                  {modals[ADD_LINK] && (
-                    <FolderModal
-                      variant={ADD_LINK}
-                      deleted={url}
-                      closeModal={closeModal}
-                    />
-                  )}
                 </div>
               )}
             </div>
-          )} */}
+          </div>
+
+          <div className={styles.description}>{description}</div>
+
+          <div className={styles.date}>{formatDate(date)}</div>
         </div>
-        <div className={styles.description}>{description}</div>
-        <div className={styles.date}>{formatDate(date)}</div>
       </div>
-    </div>
+
+      <DeleteModal
+        isOpen={currentModal === MODALS.deleteLink}
+        title="폴더 삭제"
+        deletion={url}
+        onCloseClick={closeModal}
+      />
+
+      <FolderModal
+        isOpen={currentModal === MODALS.addLink}
+        link={url}
+        title="폴더에 추가"
+        buttonText="추가하기"
+        folderList={folderList}
+        onCloseClick={closeModal}
+      />
+    </>
   );
 }
 

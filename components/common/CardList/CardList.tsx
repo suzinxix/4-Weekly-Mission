@@ -1,18 +1,15 @@
+import { useState } from "react";
 import styles from "./cardlist.module.css";
 import Card from "@/components/common/Card/Card";
 import NoResults from "@/components/common/NoResults/NoResults";
-import type { LinkItem } from "hooks/useGetLinks";
-import { UseModal } from "hooks/useModal";
+import type { LinkItem, Folder } from "types";
 
-interface Props extends Partial<UseModal> {
+interface Props {
   items: LinkItem[] | null;
+  folderList: Folder[] | null;
 }
 
-function CardList({ items, ...rest }: Props) {
-  const handleClick = (url: string) => {
-    window.open(url, "_blank");
-  };
-
+function CardList({ items, folderList }: Props) {
   if (!items || items.length === 0) {
     return <NoResults />;
   }
@@ -22,7 +19,7 @@ function CardList({ items, ...rest }: Props) {
       <ul className={styles.list}>
         {items.map((item) => (
           <li key={item.id}>
-            <Card item={item} onClick={() => handleClick(item.url)} {...rest} />
+            <Card item={item} folderList={folderList} />
           </li>
         ))}
       </ul>
