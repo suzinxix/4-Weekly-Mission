@@ -20,6 +20,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/axios.ts"],
   "exclude": ["node_modules"]
 }

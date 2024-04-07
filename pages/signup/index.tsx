@@ -1,3 +1,6 @@
+import { useRouter } from "next/router";
+import instance from "lib/axios";
+import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./signup.module.css";
@@ -5,8 +8,10 @@ import { RegisterSchema } from "lib/zod/schema/RegisterSchema";
 import InputField from "@/components/common/InputField/InputField";
 
 const SignUp = () => {
+  const router = useRouter();
   const {
     register,
+    setError,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RegisterSchema>({
@@ -14,8 +19,30 @@ const SignUp = () => {
     resolver: zodResolver(RegisterSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterSchema> = (data) => {
-    console.log(data);
+  const postData = async (email: string, password: string) => {
+    try {
+      const response = await instance.post("/sign-up", { email, password });
+      const result = response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error();
+      }
+    }
+  };
+
+  const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
+    const { email, password } = data;
+    postData(email, password)
+      .then(() => {
+        router.push("/folder");
+        console.log("성공");
+      })
+      .catch(() => {
+        setError("email", {
+          type: "400",
+          message: "이미 사용 중인 이메일입니다.",
+        });
+      });
   };
 
   return (
@@ -26,7 +53,7 @@ const SignUp = () => {
           type="text"
           label="이메일"
           placeholder="이메일을 입력해주세요"
-          error={errors.email?.message}
+          errorMessage={errors.email?.message}
           {...register("email")}
         />
 
@@ -35,7 +62,7 @@ const SignUp = () => {
           type="password"
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요."
-          error={errors.password?.message}
+          errorMessage={errors.password?.message}
           {...register("password")}
         />
 
@@ -44,7 +71,7 @@ const SignUp = () => {
           type="password"
           label="비밀번호 확인"
           placeholder="비밀번호를 입력해주세요."
-          error={errors.confirmPassword?.message}
+          errorMessage={errors.confirmPassword?.message}
           {...register("confirmPassword")}
         />
 
