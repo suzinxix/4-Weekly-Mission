@@ -6,6 +6,7 @@ import Profile from "./Profile/Profile";
 import { fetchGetSampleUsers } from "hooks/useGetSampleData";
 import { ID, USER_ID } from "constants";
 import type { User } from "types";
+import Logo from "@/images/logo.svg";
 
 function Navbar() {
   const [user, setUser] = useState<User>();
@@ -30,13 +31,7 @@ function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.wrap}>
         <Link href="/">
-          <Image
-            src="images/logo.svg"
-            alt="로고"
-            width="133"
-            height="24"
-            priority
-          />
+          <Logo width="133" height="24" alt="로고" priority />
         </Link>
         {user ? (
           <Link href="/mypage">

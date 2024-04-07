@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+}
+
+.link {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
