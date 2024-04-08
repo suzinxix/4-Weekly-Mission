@@ -1,12 +1,10 @@
 import useFetch from "hooks/useFetch";
-import instance from "lib/axios";
 import type { Folder } from "types";
 
 export const useGetFolders = (userId: number) => {
-  const getFolders = () =>
-    instance.get<{ data: Folder[] }>(`/users/${userId}/folders`);
-
-  const { data, loading, error } = useFetch(getFolders);
+  const { data, loading, error } = useFetch<{ data: Folder[] }>(
+    `/users/${userId}/folders`
+  );
 
   const folderData = data?.data ?? [];
 

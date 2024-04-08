@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  useState,
-  ReactElement,
-  useRef,
-  useEffect,
-} from "react";
+import React, { ChangeEvent, useState, ReactElement, useRef } from "react";
 import styles from "./folder.module.css";
 
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -18,7 +12,7 @@ import { useGetLinks } from "hooks/useGetLinks";
 import { useGetFolders } from "hooks/useGetFolders";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 
-import type { LinkItem, Folder } from "types";
+import type { LinkItem } from "types";
 import type { NextPageWithLayout } from "../_app";
 
 import { ALL } from "constants/etc";
@@ -30,12 +24,6 @@ export type SelectedCategory = {
   name: string;
 };
 
-interface UseFetchResponse<T> {
-  data: T | null;
-  loading?: boolean;
-  error?: Error | null;
-}
-
 const FolderPage: NextPageWithLayout = () => {
   const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>({
     id: null,
@@ -45,7 +33,6 @@ const FolderPage: NextPageWithLayout = () => {
   const { data: folders } = useGetFolders(USERID);
 
   const { data: folderLinks } = useGetLinks(USERID, selectedCategory.id);
-
 
   const [searchText, setSearchText] = useState("");
 
@@ -70,7 +57,7 @@ const FolderPage: NextPageWithLayout = () => {
   };
 
   const handleCategoryClick = (id: number | null, name: string) => {
-    setSelectedCategory({ ...selectedCategory, id, name });
+    setSelectedCategory({ id, name });
   };
 
   const handleDeletedClick = () => {
@@ -83,10 +70,6 @@ const FolderPage: NextPageWithLayout = () => {
     threshold: 0.3,
   });
   const isVisibleFooter = useIntersectionObserver(fooerRef, { threshold: 1 });
-
-  useEffect(() => {
-   
-  }, [selectedCategory.id]);
 
   return (
     <div>
