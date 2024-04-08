@@ -48,17 +48,13 @@ const ShareModal = ({ isOpen, title, folderName, onCloseClick }: Props) => {
   useEffect(() => {
     if (window.Kakao) {
       window.Kakao.cleanup();
-      window.Kakao.init(process.env.REACT_APP_API_KEY);
+      window.Kakao.init(process.env.NEXT_PUBLIC_API_KEY);
       window.Kakao.isInitialized();
     }
   }, []);
 
   return (
-    <BaseModal
-      isOpen={isOpen}
-      title={title}
-      onCloseClick={onCloseClick}
-    >
+    <BaseModal isOpen={isOpen} title={title} onCloseClick={onCloseClick}>
       <p className={styles.folder}>{folderName}</p>
 
       <div className={styles.items}>

@@ -7,7 +7,6 @@ import styles from "./folder.module.css";
 import BaseModal from "@/components/common/Modal/BaseModal/BaseModal";
 import type { Folder } from "types";
 
-
 type Props = {
   isOpen: boolean;
   title: string;
@@ -28,11 +27,7 @@ const FolderModal = ({
   onCloseClick,
 }: Props) => {
   return (
-    <BaseModal
-      isOpen={isOpen}
-      title={title}
-      onCloseClick={onCloseClick}
-    >
+    <BaseModal isOpen={isOpen} title={title} onCloseClick={onCloseClick}>
       {folderList ? (
         <div className={styles.warpper}>
           <p className={styles.link}>{link}</p>

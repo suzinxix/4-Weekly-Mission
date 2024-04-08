@@ -10,10 +10,10 @@ import instance from "lib/axios";
 import useLocalStorage from "hooks/useLocalStorage";
 import styles from "./signin.module.css";
 import Logo from "@/images/logo.svg";
+import { ROUTE_PATHS } from "constants/route";
+import { TOKEN } from "constants/auth";
 
 const SignIn = () => {
-  const router = useRouter();
-
   const {
     register,
     setError,
@@ -24,6 +24,8 @@ const SignIn = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const router = useRouter();
+
   const postData = async (email: string, password: string) => {
     try {
       const response = await instance.post("/sign-in", { email, password });
@@ -31,7 +33,7 @@ const SignIn = () => {
       return result;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        throw new Error();
+        throw error;
       }
     }
   };
@@ -40,8 +42,8 @@ const SignIn = () => {
     const { email, password } = data;
     postData(email, password)
       .then((res) => {
-        useLocalStorage("token", res.data.accessToken);
-        router.push("/folder");
+        useLocalStorage(TOKEN.access, res.data.accessToken);
+        router.push(ROUTE_PATHS.folder);
       })
       .catch(() => {
         setError("email", {
@@ -62,7 +64,7 @@ const SignIn = () => {
       <Navigation
         question="회원이 아니신가요?"
         navigation="회원 가입하기"
-        link="/signup"
+        link={ROUTE_PATHS.signup}
       />
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

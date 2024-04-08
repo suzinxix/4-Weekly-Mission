@@ -6,9 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./signup.module.css";
 import { Register, registerSchema } from "lib/zod/schema/RegisterSchema";
 import InputField from "@/components/common/InputField/InputField";
+import { ROUTE_PATHS } from "constants/route";
 
 const SignUp = () => {
-  const router = useRouter();
   const {
     register,
     setError,
@@ -19,13 +19,15 @@ const SignUp = () => {
     resolver: zodResolver(registerSchema),
   });
 
+  const router = useRouter();
+
   const postData = async (email: string, password: string) => {
     try {
       const response = await instance.post("/sign-up", { email, password });
       const result = response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        throw new Error();
+        throw error;
       }
     }
   };
@@ -34,8 +36,7 @@ const SignUp = () => {
     const { email, password } = data;
     postData(email, password)
       .then(() => {
-        router.push("/folder");
-        console.log("성공");
+        router.push(ROUTE_PATHS.folder);
       })
       .catch(() => {
         setError("email", {
