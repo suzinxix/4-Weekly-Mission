@@ -7,6 +7,7 @@ import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import ShareModal from "@/components/common/Modal/ShareModal/ShareModal";
 
+import { ALL } from "constants/etc";
 import { MODALS } from "constants/modals";
 import AddIcon from "@/images/ic_add.svg";
 
@@ -60,7 +61,7 @@ const FolderToolBar = ({
         <div className={styles.categoryName}>{selectedCategory.name}</div>
         <div
           className={`${styles.barButtons} ${
-            selectedCategory.name === "전체" ? styles.hidden : ""
+            selectedCategory.name === ALL ? styles.hidden : ""
           }`}
         >
           <ActionButton

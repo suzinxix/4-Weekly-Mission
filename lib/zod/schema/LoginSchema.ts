@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export type Login = z.infer<typeof LoginSchema>;
+export type Login = z.infer<typeof loginSchema>;
 
-export const LoginSchema = z.object({
+export const loginSchema = z.object({
   email: z
     .string()
     .min(1, { message: "이메일을 입력해 주세요." })

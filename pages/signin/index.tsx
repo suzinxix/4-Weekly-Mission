@@ -1,9 +1,8 @@
-
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema, Login } from "lib/zod/schema/LoginSchema";
+import { Login, loginSchema } from "lib/zod/schema/LoginSchema";
 import InputField from "@/components/common/InputField/InputField";
 import SocialAuth from "@/components/auth/SocialAuth/SocialAuth";
 import Navigation from "@/components/auth/Navigation/Navigation";
@@ -22,7 +21,7 @@ const SignIn = () => {
     formState: { errors, isSubmitting },
   } = useForm<Login>({
     mode: "onBlur",
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(loginSchema),
   });
 
   const postData = async (email: string, password: string) => {
@@ -41,8 +40,8 @@ const SignIn = () => {
     const { email, password } = data;
     postData(email, password)
       .then((res) => {
-        useLocalStorage('token', res.data.accessToken);
-        router.push('/folder')
+        useLocalStorage("token", res.data.accessToken);
+        router.push("/folder");
       })
       .catch(() => {
         setError("email", {

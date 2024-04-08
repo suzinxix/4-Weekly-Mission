@@ -15,7 +15,7 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import type { LinkItem, Folder } from "types";
 import type { NextPageWithLayout } from "../_app";
 
-import { ALL, MODALS } from "constants/modals";
+import { ALL } from "constants/etc";
 
 const USERID = 11;
 
@@ -87,7 +87,7 @@ const FolderPage: NextPageWithLayout = () => {
       <div ref={headerRef}></div>
 
       {!isVisibleHeader && !isVisibleFooter && (
-        <Header folderList={folders} isClassName={true} />
+        <Header folderList={folders} fixed={true} />
       )}
 
       <div className={styles.container}>

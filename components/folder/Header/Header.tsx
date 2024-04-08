@@ -7,10 +7,10 @@ import type { Folder } from "types";
 
 interface Props {
   folderList: Folder[] | null;
-  isClassName?: boolean;
+  fixed?: boolean;
 }
 
-function Header({ folderList, isClassName }: Props) {
+function Header({ folderList, fixed }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState("");
 
@@ -29,7 +29,7 @@ function Header({ folderList, isClassName }: Props) {
   return (
     <div
       className={clsx(styles.container, {
-        [styles.fixed]: isClassName,
+        [styles.fixed]: fixed,
       })}
     >
       <form className={styles.form}>

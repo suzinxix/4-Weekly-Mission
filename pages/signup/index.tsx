@@ -4,7 +4,7 @@ import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./signup.module.css";
-import { RegisterSchema } from "lib/zod/schema/RegisterSchema";
+import { Register, registerSchema } from "lib/zod/schema/RegisterSchema";
 import InputField from "@/components/common/InputField/InputField";
 
 const SignUp = () => {
@@ -14,9 +14,9 @@ const SignUp = () => {
     setError,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterSchema>({
+  } = useForm<Register>({
     mode: "onBlur",
-    resolver: zodResolver(RegisterSchema),
+    resolver: zodResolver(registerSchema),
   });
 
   const postData = async (email: string, password: string) => {
@@ -30,7 +30,7 @@ const SignUp = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
+  const onSubmit: SubmitHandler<Register> = async (data) => {
     const { email, password } = data;
     postData(email, password)
       .then(() => {

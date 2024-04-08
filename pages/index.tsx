@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import Link from "next/link";
 import Layout from "@/components/common/Layout/Layout";
+import { ROUTE_PATHS } from "constants/route";
 import type { NextPageWithLayout } from "./_app";
 
 const HomePage: NextPageWithLayout = () => {
@@ -9,10 +10,13 @@ const HomePage: NextPageWithLayout = () => {
       Home 페이지
       <ul>
         <li>
-          <Link href="/folder">폴더 페이지 이동</Link>
+          <Link href={ROUTE_PATHS.folder}>폴더 페이지 이동</Link>
         </li>
         <li>
-          <Link href="/shared">공유 페이지 이동</Link>
+          <Link href={ROUTE_PATHS.shared}>공유 페이지 이동</Link>
+        </li>
+        <li>
+          <Link href={ROUTE_PATHS.login}>로그인 페이지 이동</Link>
         </li>
       </ul>
     </div>
