@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useState, ReactElement, useRef } from "react";
+import React, {
+  ChangeEvent,
+  useState,
+  ReactElement,
+  useRef,
+  useEffect,
+} from "react";
 import styles from "./folder.module.css";
 
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -36,12 +42,10 @@ const FolderPage: NextPageWithLayout = () => {
     name: ALL,
   });
 
-  const { data: folders }: UseFetchResponse<Folder[]> = useGetFolders(USERID);
+  const { data: folders } = useGetFolders(USERID);
 
-  const { data: folderLinks }: UseFetchResponse<LinkItem[]> = useGetLinks(
-    USERID,
-    selectedCategory.id
-  );
+  const { data: folderLinks } = useGetLinks(USERID, selectedCategory.id);
+
 
   const [searchText, setSearchText] = useState("");
 
@@ -66,7 +70,7 @@ const FolderPage: NextPageWithLayout = () => {
   };
 
   const handleCategoryClick = (id: number | null, name: string) => {
-    setSelectedCategory({ id, name });
+    setSelectedCategory({ ...selectedCategory, id, name });
   };
 
   const handleDeletedClick = () => {
@@ -79,6 +83,10 @@ const FolderPage: NextPageWithLayout = () => {
     threshold: 0.3,
   });
   const isVisibleFooter = useIntersectionObserver(fooerRef, { threshold: 1 });
+
+  useEffect(() => {
+   
+  }, [selectedCategory.id]);
 
   return (
     <div>

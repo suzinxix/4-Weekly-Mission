@@ -6,7 +6,7 @@ import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import type { Folder } from "types";
 
 interface Props {
-  folderList: Folder[] | null;
+  folderList: Folder[];
   fixed?: boolean;
 }
 

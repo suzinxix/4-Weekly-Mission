@@ -1,7 +1,8 @@
+import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 
-const useFetch = (url: string) => {
-  const [data, setData] = useState(null);
+const useFetch = <T>(asyncFunction: () => Promise<AxiosResponse<T>>) => {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -9,12 +10,8 @@ const useFetch = (url: string) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Server responded with status: ${response.status}`);
-        }
-        const result = await response.json();
-        setData(result.data);
+        const response = await asyncFunction();
+        setData(response?.data);
       } catch (error) {
         if (error instanceof Error) {
           setError(error);
@@ -24,7 +21,7 @@ const useFetch = (url: string) => {
       }
     };
     fetchData();
-  }, [url]);
+  }, []);
 
   return { data, loading, error };
 };

@@ -25,7 +25,7 @@ const ShareModal = ({ isOpen, title, folderName, onCloseClick }: Props) => {
       });
   };
 
-  const sharedKakao = () => {
+  const shareKakao = () => {
     window.Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
@@ -63,7 +63,7 @@ const ShareModal = ({ isOpen, title, folderName, onCloseClick }: Props) => {
 
       <div className={styles.items}>
         <div className={styles.item}>
-          <button type="button" className={styles.icon} onClick={sharedKakao}>
+          <button type="button" className={styles.icon} onClick={shareKakao}>
             <Image
               src="/images/ic_kakao.svg"
               width={18}
