@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, ReactElement, useRef } from "react";
+import { useRouter } from 'next/router'
 import styles from "./folder.module.css";
 
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -25,12 +26,14 @@ export type SelectedCategory = {
 };
 
 const FolderPage: NextPageWithLayout = () => {
+  const router = useRouter()
+
   const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>({
     id: null,
     name: ALL,
   });
 
-  const { data: folders } = useGetFolders(USERID);
+  const { data: folders } = useGetFolders();
 
   const { data: folderLinks } = useGetLinks(USERID, selectedCategory.id);
 
@@ -58,6 +61,7 @@ const FolderPage: NextPageWithLayout = () => {
 
   const handleCategoryClick = (id: number | null, name: string) => {
     setSelectedCategory({ id, name });
+    router.push(`/folder?folderId=${id}`, undefined, { shallow: true })
   };
 
   const handleDeletedClick = () => {

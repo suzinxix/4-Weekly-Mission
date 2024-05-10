@@ -32,10 +32,10 @@ const FolderModal = ({
         <div className={styles.warpper}>
           <p className={styles.link}>{link}</p>
           <ul className={styles.items}>
-            {folderList.map(({ id, name, link }) => (
+            {folderList.map(({ id, name }) => (
               <li key={id} className={styles.item}>
                 <span className={styles.folder}>{name}</span>{" "}
-                <span className={styles.count}>{`${link.count}개 링크`}</span>
+                {/* <span className={styles.count}>{`${link.count}개 링크`}</span> */}
               </li>
             ))}
           </ul>

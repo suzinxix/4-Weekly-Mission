@@ -11,7 +11,12 @@ type Props = {
 };
 
 const ShareModal = ({ isOpen, title, folderName, onCloseClick }: Props) => {
-  const currentUrl = window.location.href;
+
+  let currentUrl = ''
+  
+  if (typeof window !== "undefined") {
+    currentUrl = window.location.href;
+  }
 
   const copyToClipboard = () => {
     const textToCopy = currentUrl;

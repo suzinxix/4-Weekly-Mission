@@ -1,12 +1,12 @@
 import useFetch from "hooks/useFetch";
 import type { Folder } from "types";
 
-export const useGetFolders = (userId: number) => {
-  const { data, loading, error } = useFetch<{ data: Folder[] }>(
-    `/users/${userId}/folders`
-  );
+export const useGetFolders = () => {
 
-  const folderData = data?.data ?? [];
+  const { data, loading, error } = useFetch<{ data: { folder: Folder[] } }>(
+    `/folders`
+  );
+  const folderData = data?.data?.folder ?? [];
 
   return { data: folderData, loading, error };
 };

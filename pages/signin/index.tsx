@@ -12,6 +12,7 @@ import styles from "./signin.module.css";
 import Logo from "@/images/logo.svg";
 import { ROUTE_PATHS } from "constants/route";
 import { TOKEN } from "constants/auth";
+import LoginCheck from "@/components/common/LoginCheck/LoginCheck";
 
 const SignIn = () => {
   const {
@@ -58,40 +59,46 @@ const SignIn = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Logo width="210" height="38" />
+    <LoginCheck>
+      <div className={styles.container}>
+        <Logo width="210" height="38" />
 
-      <Navigation
-        question="회원이 아니신가요?"
-        navigation="회원 가입하기"
-        link={ROUTE_PATHS.signup}
-      />
-
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <InputField
-          id="email"
-          type="email"
-          label="이메일"
-          placeholder="이메일을 입력해주세요"
-          errorMessage={errors.email?.message}
-          {...register("email")}
+        <Navigation
+          question="회원이 아니신가요?"
+          navigation="회원 가입하기"
+          link={ROUTE_PATHS.signup}
         />
 
-        <InputField
-          id="password"
-          type="password"
-          label="비밀번호"
-          placeholder="비밀번호를 입력해주세요."
-          errorMessage={errors.password?.message}
-          {...register("password")}
-        />
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <InputField
+            id="email"
+            type="email"
+            label="이메일"
+            placeholder="이메일을 입력해주세요"
+            errorMessage={errors.email?.message}
+            {...register("email")}
+          />
 
-        <button type="submit" disabled={isSubmitting} className={styles.button}>
-          로그인
-        </button>
-      </form>
-      <SocialAuth>소셜 로그인</SocialAuth>
-    </div>
+          <InputField
+            id="password"
+            type="password"
+            label="비밀번호"
+            placeholder="비밀번호를 입력해주세요."
+            errorMessage={errors.password?.message}
+            {...register("password")}
+          />
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={styles.button}
+          >
+            로그인
+          </button>
+        </form>
+        <SocialAuth>소셜 로그인</SocialAuth>
+      </div>
+    </LoginCheck>
   );
 };
 

@@ -1,12 +1,9 @@
 export type Folder = {
-  id: number;
   created_at: Date;
+  favorite: boolean;
+  id: number;
   name: string;
   user_id: number;
-  favorite: boolean;
-  link: {
-    count: number;
-  };
 };
 
 export type User = {
