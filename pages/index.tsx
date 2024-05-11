@@ -1,7 +1,5 @@
 import { ReactElement } from "react";
-import Link from "next/link";
 import Layout from "@/components/common/Layout/Layout";
-import { ROUTE_PATHS } from "constants/route";
 import type { NextPageWithLayout } from "./_app";
 import styles from "./Home.module.css";
 import Image from "next/image";

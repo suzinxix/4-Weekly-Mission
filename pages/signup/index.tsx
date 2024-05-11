@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import instance from "lib/axios";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +6,7 @@ import styles from "./signup.module.css";
 import { Register, registerSchema } from "lib/zod/schema/RegisterSchema";
 import InputField from "@/components/common/InputField/InputField";
 import { ROUTE_PATHS } from "constants/route";
+import useSignUp from "hooks/useSignUp";
 
 const SignUp = () => {
   const {
@@ -21,29 +21,28 @@ const SignUp = () => {
 
   const router = useRouter();
 
-  const postData = async (email: string, password: string) => {
-    try {
-      const response = await instance.post("/sign-up", { email, password });
-      const result = response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw error;
-      }
-    }
-  };
+  const { signUp } = useSignUp();
 
   const onSubmit: SubmitHandler<Register> = async (data) => {
     const { email, password } = data;
-    postData(email, password)
-      .then(() => {
-        router.push(ROUTE_PATHS.folder);
-      })
-      .catch(() => {
-        setError("email", {
-          type: "400",
-          message: "이미 사용 중인 이메일입니다.",
-        });
-      });
+
+    try {
+      await signUp(email, password);
+      router.push(ROUTE_PATHS.login);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 409) {
+          setError("email", {
+            type: "409",
+            message: "이미 사용 중인 이메일입니다.",
+          });
+        } else {
+          setError("email", {
+            message: "다시 시도해 주세요.",
+          });
+        }
+      }
+    }
   };
 
   return (

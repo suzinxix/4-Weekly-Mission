@@ -18,10 +18,14 @@ type AppPropsWithLayout = AppProps & {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(
+  return (
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-      <ReactQueryDevtools initialIsOpen={false} />
+      {getLayout(
+        <>
+          <Component {...pageProps} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </>
+      )}
     </QueryClientProvider>
   );
 }

@@ -4,7 +4,7 @@ import type {
   AxiosRequestConfig,
   AxiosError,
 } from "axios";
-import { TOKEN } from "constants/auth";
+import useAuthStore from "store/authStore";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -12,20 +12,23 @@ const instance = axios.create({
 });
 
 const onRequest = (config: InternalAxiosRequestConfig) => {
-  // 매 요청마다 localStorage의 토큰을 조회해서 헤더에 추가한다.
-  if (localStorage.getItem(TOKEN.access)) {
-    const accessToken = JSON.parse(localStorage.getItem(TOKEN.access) ?? "");
-    config.headers.Authorization = accessToken ? `Bearer ${accessToken}` : "";
+  const accessToken = useAuthStore.getState().accessToken;
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   return config;
 };
 
 const onError = (error: AxiosError) => {
-  // Unauthorized 응답을 받으면 가지고 있던 토큰을 제거한다.
-  if (error.isAxiosError && error.response?.status === 401) {
-    localStorage.removeItem(TOKEN.access);
-    console.log(error.response.status);
+  // Unauthorized 응답
+  if (error.isAxiosError) {
+    if (error.response?.status === 404) {
+      console.log("존재하지 않는 유저");
+    } else {
+      console.log("인증 오류");
+    }
   }
 };
 

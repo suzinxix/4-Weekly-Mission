@@ -13,6 +13,7 @@ import Logo from "@/images/logo.svg";
 import { ROUTE_PATHS } from "constants/route";
 import { TOKEN } from "constants/auth";
 import LoginCheck from "@/components/common/LoginCheck/LoginCheck";
+import useLogin from "hooks/useLogin";
 
 const SignIn = () => {
   const {
@@ -27,26 +28,14 @@ const SignIn = () => {
 
   const router = useRouter();
 
-  const postData = async (email: string, password: string) => {
-    try {
-      const response = await instance.post("/sign-in", { email, password });
-      const result = response.data;
-      return result;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw error;
-      }
-    }
-  };
+  const { login, isPending } = useLogin();
 
   const onSubmit: SubmitHandler<Login> = async (data) => {
-    const { email, password } = data;
-    postData(email, password)
-      .then((res) => {
-        useLocalStorage(TOKEN.access, res.data.accessToken);
-        router.push(ROUTE_PATHS.folder);
-      })
-      .catch(() => {
+    try {
+      await login(data);
+      router.push(ROUTE_PATHS.home);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
         setError("email", {
           type: "400",
           message: "이메일을 확인해 주세요.",
@@ -55,7 +44,8 @@ const SignIn = () => {
           type: "400",
           message: "비밀번호를 확인해 주세요.",
         });
-      });
+      }
+    }
   };
 
   return (

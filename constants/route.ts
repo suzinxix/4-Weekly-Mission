@@ -5,5 +5,5 @@ export const ROUTE_PATHS = {
   login: "/signin",
   signup: "/signup",
   folder: "/folder",
-  shared: "/shoard",
-};
+  shared: "/shared",
+} as const;
