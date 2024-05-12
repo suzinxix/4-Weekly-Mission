@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import instance from "lib/axios";
-import useAuthStore from "store/authStore";
-import { ROUTE_PATHS } from "constants/route";
 
 interface UserResponse {
   id: number;
@@ -17,11 +15,9 @@ const fetchUser = async (): Promise<UserResponse> => {
   return user;
 };
 
-const useGetUser = () => {
+export const useGetUser = () => {
   return useQuery({
     queryKey: ["user"],
     queryFn: fetchUser,
   });
 };
-
-export default useGetUser;

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, ReactElement, useRef } from "react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import styles from "./folder.module.css";
 
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -18,7 +18,16 @@ import type { NextPageWithLayout } from "../_app";
 
 import { ALL } from "constants/etc";
 
-const USERID = 11;
+export type Link = {
+  id: number;
+  favorite: boolean;
+  created_at: Date;
+  url: string;
+  title: string;
+  image_source: string;
+  description: string;
+  [key: string]: number | Date | string | boolean;
+};
 
 export type SelectedCategory = {
   id: number | null;
@@ -26,16 +35,16 @@ export type SelectedCategory = {
 };
 
 const FolderPage: NextPageWithLayout = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>({
     id: null,
     name: ALL,
   });
 
-  const { data: folders } = useGetFolders();
+  const { data: folders, isPending, isError } = useGetFolders();
 
-  const { data: folderLinks } = useGetLinks(USERID, selectedCategory.id);
+  const { data: folderLinks } = useGetLinks(selectedCategory.id);
 
   const [searchText, setSearchText] = useState("");
 
@@ -45,7 +54,7 @@ const FolderPage: NextPageWithLayout = () => {
     setSearchText(e.target.value);
   };
 
-  const filterSearchText = (items: LinkItem[]) => {
+  const filterSearchText = (items: Link[]) => {
     return items.filter((item) => {
       return searchParam.some((newItem) => {
         return (
@@ -61,7 +70,7 @@ const FolderPage: NextPageWithLayout = () => {
 
   const handleCategoryClick = (id: number | null, name: string) => {
     setSelectedCategory({ id, name });
-    router.push(`/folder?folderId=${id}`, undefined, { shallow: true })
+    router.push(`/folder?folderId=${id}`, undefined, { shallow: true });
   };
 
   const handleDeletedClick = () => {
@@ -74,6 +83,14 @@ const FolderPage: NextPageWithLayout = () => {
     threshold: 0.3,
   });
   const isVisibleFooter = useIntersectionObserver(fooerRef, { threshold: 1 });
+
+  if (isPending) {
+    return <div>로딩 중 입니다.</div>;
+  }
+
+  if (isError) {
+    return <div>에러가 발생했습니다. 다시 시도해주세요.</div>;
+  }
 
   return (
     <div>
@@ -103,6 +120,7 @@ const FolderPage: NextPageWithLayout = () => {
 
               {folderLinks && (
                 <CardList
+                  folderId={selectedCategory.id}
                   items={filterSearchText(folderLinks)}
                   folderList={folders}
                 />

@@ -16,6 +16,7 @@ type Props = {
   onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
   onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
 };
 
 const FolderModal = ({
@@ -25,6 +26,7 @@ const FolderModal = ({
   link,
   folderList,
   onCloseClick,
+  onClick,
 }: Props) => {
   return (
     <BaseModal isOpen={isOpen} title={title} onCloseClick={onCloseClick}>
@@ -43,7 +45,7 @@ const FolderModal = ({
       ) : (
         <input type="text" className={styles.input} placeholder="내용 입력" />
       )}
-      <button type="button" className={styles.btn}>
+      <button type="button" className={styles.btn} onClick={onClick}>
         {buttonText}
       </button>
     </BaseModal>

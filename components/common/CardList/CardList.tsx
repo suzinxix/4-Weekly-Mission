@@ -5,11 +5,12 @@ import NoResults from "@/components/common/NoResults/NoResults";
 import type { LinkItem, Folder } from "types";
 
 interface Props {
+  folderId: number;
   items: LinkItem[] | null;
   folderList: Folder[] | null;
 }
 
-function CardList({ items, folderList }: Props) {
+function CardList({ folderId, items, folderList }: Props) {
   if (!items || items.length === 0) {
     return <NoResults />;
   }
@@ -19,7 +20,7 @@ function CardList({ items, folderList }: Props) {
       <ul className={styles.list}>
         {items.map((item) => (
           <li key={item.id}>
-            <Card item={item} folderList={folderList} />
+            <Card item={item} folderId={folderId} folderList={folderList} />
           </li>
         ))}
       </ul>

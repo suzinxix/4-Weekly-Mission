@@ -7,7 +7,8 @@ import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import ShareModal from "@/components/common/Modal/ShareModal/ShareModal";
 
-import { ALL } from "constants/etc";
+import { useDeleteFolder } from "hooks/useDeleteFolder";
+
 import { MODALS } from "constants/modals";
 import AddIcon from "@/images/ic_add.svg";
 
@@ -27,8 +28,23 @@ const FolderToolBar = ({
 }: Props) => {
   const [currentModal, setCurrentModal] = useState<string | null>(null);
 
+  const { mutateAsync: deleteFolder } = useDeleteFolder();
+
   const closeModal = () => {
     setCurrentModal(null);
+  };
+
+  const handleFolderName = () => {
+    console.log("change name");
+    // useMutation
+  };
+
+  const handleDelete = async () => {
+    if (selectedCategory.id) {
+      await deleteFolder(selectedCategory.id);
+      onCategoryClick(null, "전체");
+      closeModal();
+    }
   };
 
   return (
@@ -54,14 +70,16 @@ const FolderToolBar = ({
         isOpen={currentModal === MODALS.addFolder}
         title="폴더 추가"
         buttonText="추가하기"
+        onClick={() => console.log("추가")}
         onCloseClick={closeModal}
       />
 
       <div className={styles.bar}>
         <div className={styles.categoryName}>{selectedCategory.name}</div>
+
         <div
           className={`${styles.barButtons} ${
-            selectedCategory.name === ALL ? styles.hidden : ""
+            selectedCategory.id === null ? styles.hidden : ""
           }`}
         >
           <ActionButton
@@ -92,6 +110,7 @@ const FolderToolBar = ({
         isOpen={currentModal === MODALS.edit}
         title="폴더 이름 변경"
         buttonText="변경하기"
+        onClick={handleFolderName}
         onCloseClick={closeModal}
       />
 
@@ -99,6 +118,7 @@ const FolderToolBar = ({
         isOpen={currentModal === MODALS.deleteFolder}
         title="폴더 삭제"
         deletion={selectedCategory.name}
+        onClick={handleDelete}
         onCloseClick={closeModal}
       />
     </>

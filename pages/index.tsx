@@ -3,6 +3,8 @@ import Layout from "@/components/common/Layout/Layout";
 import type { NextPageWithLayout } from "./_app";
 import styles from "./Home.module.css";
 import Image from "next/image";
+import { ROUTE_PATHS } from "constants/route";
+import Link from "next/link";
 
 const HomePage: NextPageWithLayout = () => {
   return (
@@ -15,7 +17,9 @@ const HomePage: NextPageWithLayout = () => {
             </span>
             <span className={styles.span}>쉽게 저장하고 관리해 보세요</span>
           </h1>
-          <button className={styles.linkAddBtn}>링크 추가하기</button>
+          <Link href={ROUTE_PATHS.folder}>
+            <button className={styles.linkAddBtn}>링크 추가하기</button>
+          </Link>
           <Image src="/images/bg.svg" alt="" width={1118} height={659} />
         </div>
       </div>

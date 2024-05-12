@@ -5,6 +5,8 @@ import styles from "./card.module.css";
 import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import FolderModal from "@/components/common/Modal/FolderModal/FolderModal";
 
+import { useDeleteLink } from "hooks/useDeleteLink";
+
 import { formatDate, getTimeDifference } from "utils/date";
 import { MODALS } from "constants/modals";
 import type { LinkItem, Folder } from "types";
@@ -12,17 +14,34 @@ import noImage from "@/images/bg_noImage.png";
 
 interface Props {
   item: LinkItem;
+  folderId: number;
   folderList: Folder[] | null;
 }
 
+export type Link = {
+  id: number;
+  favorite: boolean;
+  created_at: Date;
+  url: string;
+  title: string;
+  image_source: string;
+  description: string;
+  [key: string]: number | Date | string | boolean;
+};
+
 // TODO: Card 컴포넌트 분리
-function Card({ item, folderList }: Props) {
-  const { createdAt, created_at, description, imageSource, image_source, url } =
-    item;
+function Card({ item, folderId, folderList }: Props) {
+  // const { createdAt, created_at, description, imageSource, image_source, url } =
+  //   item;
 
-  const date = createdAt || created_at;
+  const { id, created_at: date, url, image_source: imgUrl, description } = item;
 
-  const imgUrl = imageSource || image_source;
+  const {
+    mutateAsync: deleteLink,
+    isPending,
+    isError,
+    error,
+  } = useDeleteLink(folderId);
 
   const absoluteImageUrl = imgUrl?.startsWith("//")
     ? `https:${imgUrl}`
@@ -36,6 +55,11 @@ function Card({ item, folderList }: Props) {
 
   const closeModal = () => {
     setCurrentModal(null);
+  };
+
+  const handleDelete = async () => {
+    await deleteLink(id);
+    closeModal();
   };
 
   const handleCardClick = (url: string) => {
@@ -137,6 +161,7 @@ function Card({ item, folderList }: Props) {
         isOpen={currentModal === MODALS.deleteLink}
         title="폴더 삭제"
         deletion={url}
+        onClick={handleDelete}
         onCloseClick={closeModal}
       />
 
