@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "lib/axios";
 
+import { QUERY_KEYS } from "constants/queryKey";
+
 export const useAddFolder = () => {
   const queryClient = useQueryClient();
 
@@ -10,7 +12,7 @@ export const useAddFolder = () => {
     },
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: ["folders"],
+        queryKey: QUERY_KEYS.FOLDERS,
       }),
   });
 };

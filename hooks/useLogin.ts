@@ -16,7 +16,6 @@ const useLogin = () => {
       return instance.post("/auth/sign-in", data);
     },
     onSuccess: (res) => {
-      // 토큰 저장
       const { accessToken, refreshToken } = res.data;
       setAccessToken(accessToken);
       Cookies.set("refreshToken", refreshToken, { expires: 7 });

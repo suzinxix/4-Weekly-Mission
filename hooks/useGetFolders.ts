@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import instance from "lib/axios";
 
+import { QUERY_KEYS } from "constants/queryKey";
+
 export type Folder = {
   id: number;
   created_at: Date;
@@ -20,7 +22,7 @@ const fetchFolders = async () => {
 
 export const useGetFolders = () => {
   return useQuery({
-    queryKey: ["folders"],
+    queryKey: QUERY_KEYS.FOLDERS,
     queryFn: fetchFolders,
     staleTime: 1000 * 60,
   });

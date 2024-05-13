@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import instance from "lib/axios";
 
+import { QUERY_KEYS } from "constants/queryKey";
+
 export type Link = {
   id: number;
   favorite: boolean;
@@ -23,7 +25,7 @@ export const useGetLinks = (folderId: number | null) => {
   };
 
   return useQuery({
-    queryKey: ["links", folderId],
+    queryKey: QUERY_KEYS.LINKS(folderId),
     queryFn: fetchLinks,
     staleTime: 1000 * 60,
   });
