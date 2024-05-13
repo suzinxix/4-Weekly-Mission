@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import instance from "lib/axios";
 
 import { QUERY_KEYS } from "constants/queryKey";
+import { API_ENDPOINTS } from "constants/endPoint";
 
 export type Link = {
   id: number;
@@ -16,7 +17,9 @@ export type Link = {
 export const useGetLinks = (folderId: number | null) => {
   const fetchLinks = async () => {
     try {
-      const url = folderId ? `/folders/${folderId}/links` : "/links";
+      const url = folderId
+        ? API_ENDPOINTS.LINK_DETAIL(folderId)
+        : API_ENDPOINTS.LINKS;
       const { data } = await instance.get<Link[]>(url);
       return data;
     } catch (error) {

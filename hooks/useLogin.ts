@@ -1,7 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import instance from "lib/axios";
+
 import useAuthStore from "store/authStore";
 import Cookies from "js-cookie";
+
+import { API_ENDPOINTS } from "constants/endPoint";
 
 interface User {
   email: string;
@@ -13,7 +16,7 @@ const useLogin = () => {
 
   const mutation = useMutation({
     mutationFn: (data: User) => {
-      return instance.post("/auth/sign-in", data);
+      return instance.post(API_ENDPOINTS.SIGN_IN, data);
     },
     onSuccess: (res) => {
       const { accessToken, refreshToken } = res.data;

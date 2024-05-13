@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "lib/axios";
 
 import { QUERY_KEYS } from "constants/queryKey";
+import { API_ENDPOINTS } from "constants/endPoint";
 
 export type Folder = {
   id: number;
@@ -17,7 +18,7 @@ export const useUpdateFolder = () => {
   return useMutation({
     mutationFn: async (data: { folderId: number; name: string }) => {
       const response = await instance.put<Folder[]>(
-        `/folders/${data.folderId}`,
+        API_ENDPOINTS.FOLDER_DETAIL(data.folderId),
         {
           name: data.name,
         }

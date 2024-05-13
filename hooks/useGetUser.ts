@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import instance from "lib/axios";
 
 import { QUERY_KEYS } from "constants/queryKey";
+import { API_ENDPOINTS } from "constants/endPoint";
 
 interface UserResponse {
   id: number;
@@ -13,7 +14,7 @@ interface UserResponse {
 const fetchUser = async (): Promise<UserResponse> => {
   const {
     data: [user],
-  } = await instance.get("/users");
+  } = await instance.get(API_ENDPOINTS.USERS);
   return user;
 };
 
