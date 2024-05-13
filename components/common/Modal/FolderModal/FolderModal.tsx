@@ -2,6 +2,8 @@ import {
   ChangeEventHandler,
   KeyboardEventHandler,
   MouseEventHandler,
+  useEffect,
+  useState,
 } from "react";
 import styles from "./folder.module.css";
 import BaseModal from "@/components/common/Modal/BaseModal/BaseModal";
@@ -16,7 +18,7 @@ type Props = {
   onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
   onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  onClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+  onClick: (name: string) => void;
 };
 
 const FolderModal = ({
@@ -28,6 +30,13 @@ const FolderModal = ({
   onCloseClick,
   onClick,
 }: Props) => {
+  const [value, setValue] = useState("");
+
+  const handleButtonClick = () => {
+    onClick(value);
+    setValue("");
+  };
+
   return (
     <BaseModal isOpen={isOpen} title={title} onCloseClick={onCloseClick}>
       {folderList ? (
@@ -43,9 +52,15 @@ const FolderModal = ({
           </ul>
         </div>
       ) : (
-        <input type="text" className={styles.input} placeholder="내용 입력" />
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className={styles.input}
+          placeholder="내용 입력"
+        />
       )}
-      <button type="button" className={styles.btn} onClick={onClick}>
+      <button type="button" className={styles.btn} onClick={handleButtonClick}>
         {buttonText}
       </button>
     </BaseModal>

@@ -25,5 +25,6 @@ export const useGetLinks = (folderId: number | null) => {
   return useQuery({
     queryKey: ["links", folderId],
     queryFn: fetchLinks,
+    staleTime: 1000 * 60,
   });
 };

@@ -8,6 +8,8 @@ import DeleteModal from "@/components/common/Modal/DeleteModal/DeleteModal";
 import ShareModal from "@/components/common/Modal/ShareModal/ShareModal";
 
 import { useDeleteFolder } from "hooks/useDeleteFolder";
+import { useAddFolder } from "hooks/useAddFolder";
+import { useUpdateFolder } from "hooks/useUpdateFolder";
 
 import { MODALS } from "constants/modals";
 import AddIcon from "@/images/ic_add.svg";
@@ -30,13 +32,28 @@ const FolderToolBar = ({
 
   const { mutateAsync: deleteFolder } = useDeleteFolder();
 
+  const { mutateAsync: addFolder } = useAddFolder();
+
+  const { mutateAsync: updateFolder, data, isPending } = useUpdateFolder();
+
   const closeModal = () => {
     setCurrentModal(null);
   };
 
-  const handleFolderName = () => {
-    console.log("change name");
-    // useMutation
+  const handleFolderName = async (name: string) => {
+    if (selectedCategory.id) {
+      const [data] = await updateFolder({
+        folderId: selectedCategory.id,
+        name,
+      });
+      onCategoryClick(data.id, data.name);
+      closeModal();
+    }
+  };
+
+  const handleAddFolder = async (name: string) => {
+    await addFolder(name);
+    closeModal();
   };
 
   const handleDelete = async () => {
@@ -70,7 +87,7 @@ const FolderToolBar = ({
         isOpen={currentModal === MODALS.addFolder}
         title="폴더 추가"
         buttonText="추가하기"
-        onClick={() => console.log("추가")}
+        onClick={handleAddFolder}
         onCloseClick={closeModal}
       />
 

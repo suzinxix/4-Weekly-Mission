@@ -22,5 +22,6 @@ export const useGetFolders = () => {
   return useQuery({
     queryKey: ["folders"],
     queryFn: fetchFolders,
+    staleTime: 1000 * 60,
   });
 };
