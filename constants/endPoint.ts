@@ -3,7 +3,8 @@ export const API_ENDPOINTS = {
   FOLDER_DETAIL: (folderId: number) => `/folders/${folderId}`,
 
   LINKS: "/links",
-  LINK_DETAIL: (folderId: number) => `/folders/${folderId}/links`,
+  FOLDER_LINKS_DETAIL: (folderId: number) => `/folders/${folderId}/links`,
+  LINK_DETAIL: (linkId: number) => `/links/${linkId}`,
 
   USERS: "/users",
   CHECK_EMAIL: "/users/check-email",

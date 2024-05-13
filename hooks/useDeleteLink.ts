@@ -4,7 +4,7 @@ import instance from "lib/axios";
 import { QUERY_KEYS } from "constants/queryKey";
 import { API_ENDPOINTS } from "constants/endPoint";
 
-export const useDeleteLink = (folderId: number) => {
+export const useDeleteLink = (folderId: number | null) => {
   const deleteLink = async (linkId: number) => {
     try {
       await instance.delete(API_ENDPOINTS.LINK_DETAIL(linkId));

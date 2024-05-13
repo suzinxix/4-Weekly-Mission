@@ -162,14 +162,14 @@ function Card({ item, folderId, folderList }: Props) {
         onCloseClick={closeModal}
       />
 
-      <FolderModal
+      {/* <FolderModal
         isOpen={currentModal === MODALS.addLink}
         link={url}
         title="폴더에 추가"
         buttonText="추가하기"
         folderList={folderList}
         onCloseClick={closeModal}
-      />
+      /> */}
     </>
   );
 }
