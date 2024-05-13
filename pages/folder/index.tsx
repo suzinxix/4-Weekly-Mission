@@ -13,10 +13,9 @@ import { useGetLinks } from "hooks/useGetLinks";
 import { useGetFolders } from "hooks/useGetFolders";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 
-import type { LinkItem } from "types";
 import type { NextPageWithLayout } from "../_app";
 
-import { ALL } from "constants/etc";
+const ALL = "전체";
 
 export type Link = {
   id: number;

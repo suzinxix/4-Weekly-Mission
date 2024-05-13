@@ -1,10 +1,10 @@
 import styles from "./category.module.css";
-import Link from "next/link";
 import FolderButton from "@/components/folder/FolderButton/FolderButton";
-import { ROUTE_PATHS } from "constants/route";
-import { ALL } from "constants/etc";
+
 import type { Folder } from "types";
 import type { SelectedCategory } from "pages/folder";
+
+const ALL = "전체";
 
 interface Props {
   buttonNames: Folder[];
@@ -16,7 +16,7 @@ const Category = ({ buttonNames, selectedCategory, onClick }: Props) => {
   return (
     <div className={styles.buttons}>
       <FolderButton
-        isChecked={selectedCategory.name === ALL}
+        isChecked={selectedCategory.id === null}
         onClick={() => onClick(null, ALL)}
       >
         {ALL}
