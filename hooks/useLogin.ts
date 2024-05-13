@@ -6,10 +6,7 @@ import Cookies from "js-cookie";
 
 import { API_ENDPOINTS } from "constants/endPoint";
 
-interface User {
-  email: string;
-  password: string;
-}
+import type { User } from "types";
 
 const useLogin = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken);

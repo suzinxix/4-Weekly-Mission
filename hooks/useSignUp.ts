@@ -2,11 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import instance from "lib/axios";
 
 import { API_ENDPOINTS } from "constants/endPoint";
-
-interface User {
-  email: string;
-  password: string;
-}
+import { User } from "types";
 
 const useSignUp = () => {
   const checkEmailMutation = useMutation({
@@ -21,9 +17,6 @@ const useSignUp = () => {
   const signUpMutation = useMutation({
     mutationFn: (data: User) => {
       return instance.post(API_ENDPOINTS.SIGN_UP, data);
-    },
-    onSuccess: (data) => {
-      // 페이지 이동
     },
     onError: (error) => {
       throw error;

@@ -4,17 +4,13 @@ import instance from "lib/axios";
 import { QUERY_KEYS } from "constants/queryKey";
 import { API_ENDPOINTS } from "constants/endPoint";
 
-export type Folder = {
-  id: number;
-  created_at: Date;
-  favorite: boolean;
-  name: string;
-  link_count: number;
-};
+import type { Folder } from "types";
 
 const fetchFolders = async () => {
   try {
-    const { data } = await instance.get<Folder[]>(API_ENDPOINTS.FOLDERS);
+    const { data } = await instance.get<Omit<Folder[], "user_id">>(
+      API_ENDPOINTS.FOLDERS
+    );
     return data;
   } catch (error) {
     throw error;

@@ -12,11 +12,11 @@ import { MODALS } from "constants/modals";
 import type { LinkItem, Folder } from "types";
 import noImage from "@/images/bg_noImage.png";
 
-interface Props {
+type Props = {
   item: LinkItem;
-  folderId: number;
+  folderId: number | null;
   folderList: Folder[] | null;
-}
+};
 
 export type Link = {
   id: number;
@@ -31,9 +31,6 @@ export type Link = {
 
 // TODO: Card 컴포넌트 분리
 function Card({ item, folderId, folderList }: Props) {
-  // const { createdAt, created_at, description, imageSource, image_source, url } =
-  //   item;
-
   const { id, created_at: date, url, image_source: imgUrl, description } = item;
 
   const {

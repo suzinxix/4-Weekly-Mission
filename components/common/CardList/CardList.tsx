@@ -4,8 +4,8 @@ import Card from "@/components/common/Card/Card";
 import NoResults from "@/components/common/NoResults/NoResults";
 import type { LinkItem, Folder } from "types";
 
-interface Props {
-  folderId: number;
+type Props = {
+  folderId: number | null;
   items: LinkItem[] | null;
   folderList: Folder[] | null;
 }

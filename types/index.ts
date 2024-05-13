@@ -3,16 +3,13 @@ export type Folder = {
   created_at: Date;
   favorite: boolean;
   name: string;
-  link_count: number;
+  link_count?: number;
+  user_id?: number;
 };
 
 export type User = {
-  id: number;
-  created_at: Date;
-  name: string;
-  image_source: string;
   email: string;
-  auth_id: string;
+  password: string;
 };
 
 export type LinkItem = {

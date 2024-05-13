@@ -6,11 +6,11 @@ import type { SelectedCategory } from "pages/folder";
 
 const ALL = "전체";
 
-interface Props {
+type Props = {
   buttonNames: Folder[];
   selectedCategory: SelectedCategory;
   onClick: (id: number | null, name: string) => void;
-}
+};
 
 const Category = ({ buttonNames, selectedCategory, onClick }: Props) => {
   return (
